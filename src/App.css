@@ -1,4 +1,58 @@
-.header, .footer {
-  background-color: black;
-  color: white;
+:root {
+  --dark: #000000;
+  --light: #ffffff;
+  --form-element: teal;
+  font-family: 'Open Sans', sans-serif;
 }
+
+.header, .footer {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+/* Form Styles */
+
+form {
+  width: 70vw;
+  margin: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid var(--dark);
+  box-sizing: border-box;
+}
+
+.form-contents {
+  margin: 8px;
+}
+
+.form-element {
+  background-color: var(--form-element);
+  color: var(--light);
+}
+
+label, .extra-question {
+  display: block;
+  margin-left: 8px;
+}
+
+input {
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+
+.radio {
+  display: inline-block;
+}
+
+.form-title {
+  text-align: center;
+  margin: 0px;
+  padding: 8px;
+}
+
+.button-section {
+  text-align: center;
+}
+
+
+
