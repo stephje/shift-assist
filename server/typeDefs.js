@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   # "Volunteer" type defines queryable fields for volunteers.
   type Volunteer {
+    _id: ID
     firstName: String!
     lastName: String!
     address: String
@@ -47,7 +48,8 @@ const typeDefs = gql`
 
   # Queries that can be executed
   type Query {
-    volunteers: [Volunteer]
+    volunteers: [Volunteer]!
+    volunteer(volunteerId: ID!): Volunteer
   }
 
   input VolunteerInput {
