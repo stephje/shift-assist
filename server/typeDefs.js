@@ -60,6 +60,8 @@ const typeDefs = gql`
 
   type Mutation {
     addVolunteer(volunteer: VolunteerInput): Volunteer
+    removeVolunteer(volunteerId: ID!): Volunteer
+    updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
   }
 `;
 
