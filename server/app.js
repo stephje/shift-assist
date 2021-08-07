@@ -15,22 +15,23 @@ async function startApolloServer() {
     const app = express();
     server.applyMiddleware({ app });
 
-    app.get('/', (req, res) => {
+    app.use('/', (req, res) => {
         res.send('Hello from the other siiiiide~');
     });
 
-    await new Promise(resolve => app.listen({ port: 4000 }, resolve));
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
-    return { server, app };
-}
+    const connectionString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sahe7.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
-const connectionString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sahe7.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
-
-mongoose.connect(connectionString, {
+    await mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
-})
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.error(err))
+    });
+    console.log("MongoDB Connected");
+
+    await new Promise(resolve => app.listen({ port: 4000 }, resolve));
+    console.log(`Server ready at http://localhost:4000${server.graphqlPath}`);
+    return { server, app };
+}
+
+startApolloServer();
 

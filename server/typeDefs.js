@@ -49,6 +49,16 @@ const typeDefs = gql`
   type Query {
     volunteers: [Volunteer]
   }
+
+  input VolunteerInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+  }
+
+  type Mutation {
+    addVolunteer(volunteer: VolunteerInput): Volunteer
+  }
 `;
 
 module.exports = typeDefs;
