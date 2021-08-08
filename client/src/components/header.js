@@ -2,10 +2,9 @@ import React from 'react';
 
 function Header() {
     return (
-        <div className="header">
-            This is the header
-            <i class="fas fa-home"></i>
-        </div>
+        <header className="header">
+            <h1>Shift Assist</h1>
+        </header>
     );
 }
 

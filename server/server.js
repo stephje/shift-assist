@@ -10,7 +10,7 @@ async function startApolloServer() {
     const typeDefs = require('./typeDefs');
     const resolvers = require('./resolvers');
 
-    const PORT = process.env.PORT || 4000;
+    const PORT = process.env.PORT || 4000
     const app = express();
 
     const server = new ApolloServer({ typeDefs, resolvers });
@@ -27,10 +27,6 @@ async function startApolloServer() {
       
     app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
-    });
-
-    app.use('/', (req, res) => {
-        res.send('Hello from the other siiiiide~');
     });
 
     await mongoose.connect(

@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from './components/header';
 import Footer from './components/footer';
-import Volunteers from './containers/Volunteers';
-import VolunteerRegstration from './components/volunteerRegistration';
+import VolunteerRegstrationForm from './components/volunteerRegistrationForm';
 
 function App() {
   return (
     <div>
       <Header/>
-      <VolunteerRegstration/>
+      <VolunteerRegstrationForm/>
       <Footer/>
     </div>
   );
