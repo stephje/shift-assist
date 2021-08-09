@@ -25,12 +25,20 @@ const typeDefs = gql`
     email: String!
   }
 
+  input RoleInput {
+    name: String!
+    qualifications: [QualificationInput]
+  }
+
+  input QualificationInput {
+    name: String!
+  }
+
   # Queries that can be executed
   type Query {
     volunteers: [Volunteer]!
     volunteer(volunteerId: ID!): Volunteer
-
-    getRoles: [Role]
+    getRoles: [Role]!
     getQualifications: [Qualification]!
   }
 
@@ -38,6 +46,8 @@ const typeDefs = gql`
     addVolunteer(volunteer: VolunteerInput): Volunteer
     removeVolunteer(volunteerId: ID!): Volunteer
     updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
+    addRole(role: RoleInput): Role
+    addQualification(qualification: QualificationInput): Qualification
   }
 
 `;

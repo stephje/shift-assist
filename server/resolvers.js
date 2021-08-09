@@ -38,5 +38,13 @@ module.exports = {
                 { new: true }
             );
         },
+        addRole: async (_, args) => {
+            const { name, qualifications } = args.role;
+            return Role.create({ name, qualifications });
+        },
+        addQualification: async (_, args) => {
+            const { name } = args.qualification;
+            return Qualification.create({ name });
+        },
     },
 };
