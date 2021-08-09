@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_VOLUNTEER } from '../utils/mutations';
+import RolesChecklist from './rolesChecklist';
 
 function SubmitVolunteerRegistration() {
 
@@ -50,39 +51,41 @@ function SubmitVolunteerRegistration() {
                         <label>Last Name</label>
                         <input name="lastName" value={input.lastName} onChange={handleChange} type='text' required />
                     </div>
-                    {/* <div>
+                    <div>
                         <label>Street Address</label>
-                        <input type='text' />
+                        <input onChange={handleChange} name="address" value={input.address} type='text' />
                     </div>
                     <div>
                         <label>Town/Suburb</label>
-                        <input type='text' />
+                        <input onChange={handleChange} name="suburb" value={input.suburb} type='text' />
                     </div>
                     <div>
                         <label>Post Code</label>
-                        <input type='number' required />
+                        <input onChange={handleChange} name="postcode" value={input.postcode} type='number' required />
                         <label>State</label>
                         <input type='text' />
                     </div>
                     <div>
-                        <label>Mobile Phone</label>
-                        <input type='number' required />
-                    </div> */}
+                        <label>Mobile Phone Number</label>
+                        <input onChange={handleChange} name="mobile" value={input.mobile} type='number' required />
+                    </div>
                     <div>
                         <label>Email Address</label>
                         <input name="email" value={input.email} onChange={handleChange} type='email' required />
-                        {/* <label>Confirm Email Address</label>
-                        <input type='email' required /> */}
+                        <label>Confirm Email Address</label>
+                        <input onChange={handleChange} name="emailConfirmation" value={input.emailConfirmation} type='email' required />
                     </div>
-                    {/* <div>
-                        <p className='extra-question'>
+                    <div>
+                        <p className='question-text'>
                             Have you previously worked as a volunteer at this
                             festival?{' '}
                         </p>
                         <input
+                            name='previousExperience'
+                            onChange={handleChange}
+                            value={input.previousExperience}
                             type='radio'
                             id='yes'
-                            name='previousExperience'
                             value='true'
                         />
                         <label className='radio' for='yes'>
@@ -97,13 +100,71 @@ function SubmitVolunteerRegistration() {
                         <label className='radio' for='no'>
                             No
                         </label>
-                    </div> */}
+                    </div>
+                    <div>
+                        <label>Age</label>
+                        <p class="additional-info">Volunteers must be 18 years or older to work in some areas of the festival. Please enter your age in years as of the Festival start date in the space below.</p>
+                        <input onChange={handleChange} name="age" value={input.age} type='number' required />
+                    </div>
+                    <div>
+                        <label>Medical Conditions</label>
+                        <p class="additional-info"> If you have any pre-existing injury or medical condition that may limit the activities you can undertake or which may be aggravated by some activities, please list these below:</p>
+                        <input class="lg-input" onChange={handleChange} name="medical" value={input.medical} type='text' required />
+                    </div>
+                </div>
+                <h2 className='form-title form-element'>Volunteer Roles</h2>
+                <p class="additional-info">Which of the following Volunteer roles are you willing and able to do? (Select as many as are applicable)</p>
+                <RolesChecklist/>
+                <h2 className='form-title form-element'>Qualifications</h2>
+                <p class="additional-info">Do you have any of the following qualifications? (Select as many as are applicable)</p>
+                <div class="checkbox-form-contents">
+                    <div>
+                        <div>
+                            <input type="checkbox" id="rsa" name="rsa" value="rsa"/>
+                            <label for="rsa">Responsible Service of Alcohol (RSA)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="mlp" name="mlp" value="mlp"/>
+                            <label for="mlp">Management of Licensed Premises</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="seniorFirstAid" name="seniorFirstAid" value="seniorFirstAid"/>
+                            <label for="seniorFirstAid">Senior First Aid (or higher)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="ptd" name="ptd" value="ptd"/>
+                            <label for="ptd">PTD driver's license</label>
+                        </div>
+                    </div>
+                </div>  
+                <h2 className='form-title form-element'>Availability</h2>
+                <div class="form-contents">
+
+                </div>
+                <h2 className='form-title form-element'>Emergency Contact Information</h2>
+                <div class="form-contents">
+                <div>
+                    <label>Emergency Contact Full Name</label>
+                    <input onChange={handleChange} name="emergencyContactName" value={input.emergencyContactName} type='text' required />
+                    <label>Emergency Contact Phone Number</label>
+                    <input onChange={handleChange} name="emergencyPhone" value={input.emergencyPhone} type='number' required />
+                    <label>Relationship to You</label>
+                    <input name="relationship" value={input.relationship} onChange={handleChange} type='text' required />
+                </div>
+
+                </div>
+                <h2 className='form-title form-element'>Terms and Conditions</h2>
+                <div class="form-contents">
+
+                </div>
+                <div class="form-contents">
                     <div className='button-section'>
                         <button className='form-element' type='submit'>
                             Submit
                         </button>
                     </div>
                 </div>
+
             </form>
         </div>
     );

@@ -8,7 +8,7 @@ function App() {
     <div>
       <Header/>
       <VolunteerRegstrationForm/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

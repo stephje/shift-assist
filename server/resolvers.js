@@ -1,4 +1,6 @@
 const Volunteer = require('./models/Volunteer');
+const Role = require('./models/Role');
+const Qualification = require('./models/Qualification')
 
 module.exports = {
     Query: {
@@ -8,6 +10,14 @@ module.exports = {
 
         volunteer: async (_, { volunteerId }) => {
             return await Volunteer.findById({ _id: volunteerId });
+        },
+
+        getRoles: async () => {
+            return await Role.find().sort({ name: 1 });
+        },
+
+        getQualifications: async () => {
+            return await Qualification.find().sort({ name: 1 });
         },
     },
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
+import { ADD_VOLUNTEER } from '../utils/queries';
 
 const Volunteer = (props) => {
     return(
