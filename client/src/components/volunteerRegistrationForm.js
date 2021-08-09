@@ -16,6 +16,7 @@ function SubmitVolunteerRegistration() {
     function handleChange(event){
         const { name, value } = event.target;
         setInput(input => {
+            // console.log({...input})
             return {
                 ...input,
                 [name]: value
@@ -88,7 +89,7 @@ function SubmitVolunteerRegistration() {
                             id='yes'
                             value='true'
                         />
-                        <label className='radio' for='yes'>
+                        <label className='radio' htmlFor='yes'>
                             Yes
                         </label>
                         <input
@@ -97,52 +98,52 @@ function SubmitVolunteerRegistration() {
                             name='previousExperience'
                             value='true'
                         />
-                        <label className='radio' for='no'>
+                        <label className='radio' htmlFor='no'>
                             No
                         </label>
                     </div>
                     <div>
                         <label>Age</label>
-                        <p class="additional-info">Volunteers must be 18 years or older to work in some areas of the festival. Please enter your age in years as of the Festival start date in the space below.</p>
+                        <p className="additional-info">Volunteers must be 18 years or older to work in some areas of the festival. Please enter your age in years as of the Festival start date in the space below.</p>
                         <input onChange={handleChange} name="age" value={input.age} type='number' required />
                     </div>
                     <div>
                         <label>Medical Conditions</label>
-                        <p class="additional-info"> If you have any pre-existing injury or medical condition that may limit the activities you can undertake or which may be aggravated by some activities, please list these below:</p>
-                        <input class="lg-input" onChange={handleChange} name="medical" value={input.medical} type='text' required />
+                        <p className="additional-info"> If you have any pre-existing injury or medical condition that may limit the activities you can undertake or which may be aggravated by some activities, please list these below:</p>
+                        <input className="lg-input" onChange={handleChange} name="medical" value={input.medical} type='text' required />
                     </div>
                 </div>
                 <h2 className='form-title form-element'>Volunteer Roles</h2>
-                <p class="additional-info">Which of the following Volunteer roles are you willing and able to do? (Select as many as are applicable)</p>
+                <p className="additional-info">Which of the following Volunteer roles are you willing and able to do? (Select as many as are applicable)</p>
                 <RolesChecklist/>
                 <h2 className='form-title form-element'>Qualifications</h2>
-                <p class="additional-info">Do you have any of the following qualifications? (Select as many as are applicable)</p>
-                <div class="checkbox-form-contents">
+                <p className="additional-info">Do you have any of the following qualifications? (Select as many as are applicable)</p>
+                <div className="checkbox-form-contents">
                     <div>
                         <div>
                             <input type="checkbox" id="rsa" name="rsa" value="rsa"/>
-                            <label for="rsa">Responsible Service of Alcohol (RSA)</label>
+                            <label htmlFor="rsa">Responsible Service of Alcohol (RSA)</label>
                         </div>
                         <div>
                             <input type="checkbox" id="mlp" name="mlp" value="mlp"/>
-                            <label for="mlp">Management of Licensed Premises</label>
+                            <label htmlFor="mlp">Management of Licensed Premises</label>
                         </div>
                         <div>
                             <input type="checkbox" id="seniorFirstAid" name="seniorFirstAid" value="seniorFirstAid"/>
-                            <label for="seniorFirstAid">Senior First Aid (or higher)</label>
+                            <label htmlFor="seniorFirstAid">Senior First Aid (or higher)</label>
                         </div>
                         <div>
                             <input type="checkbox" id="ptd" name="ptd" value="ptd"/>
-                            <label for="ptd">PTD driver's license</label>
+                            <label htmlFor="ptd">PTD driver's license</label>
                         </div>
                     </div>
                 </div>  
                 <h2 className='form-title form-element'>Availability</h2>
-                <div class="form-contents">
+                <div className="form-contents">
 
                 </div>
                 <h2 className='form-title form-element'>Emergency Contact Information</h2>
-                <div class="form-contents">
+                <div className="form-contents">
                 <div>
                     <label>Emergency Contact Full Name</label>
                     <input onChange={handleChange} name="emergencyContactName" value={input.emergencyContactName} type='text' required />
@@ -154,10 +155,10 @@ function SubmitVolunteerRegistration() {
 
                 </div>
                 <h2 className='form-title form-element'>Terms and Conditions</h2>
-                <div class="form-contents">
+                <div className="form-contents">
 
                 </div>
-                <div class="form-contents">
+                <div className="form-contents">
                     <div className='button-section'>
                         <button className='form-element' type='submit'>
                             Submit

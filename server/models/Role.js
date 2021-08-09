@@ -6,9 +6,14 @@ const roleSchema = new Schema({
     required: true,
     trim: true,
   },
+  label: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   qualifications: {
     type: Array,
-  }
+  },
 });
 
 const Role = model('role', roleSchema);

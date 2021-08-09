@@ -10,12 +10,14 @@ const typeDefs = gql`
   }
 
   type Qualification {
+    _id: ID
     name: String!
   }
 
   type Role {
     _id: ID
     name: String!
+    label: String!
     qualifications: [Qualification]
   }
 
@@ -27,11 +29,13 @@ const typeDefs = gql`
 
   input RoleInput {
     name: String!
+    label: String!
     qualifications: [QualificationInput]
   }
 
   input QualificationInput {
     name: String!
+    label: String!
   }
 
   # Queries that can be executed
