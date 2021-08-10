@@ -4,7 +4,7 @@ const Qualification = require('./models/Qualification')
 
 module.exports = {
     Query: {
-        volunteers: async () => {
+        getVolunteers: async () => {
             return await Volunteer.find().sort({ lastName: 1 });
         },
 
@@ -23,8 +23,44 @@ module.exports = {
 
     Mutation: {
         addVolunteer: async (_, args) => {
-            const { firstName, lastName, email } = args.volunteer;
-            return Volunteer.create({ firstName, lastName, email });
+            const { 
+                firstName, 
+                lastName, 
+                email,
+                emailConfirmation,
+                address,
+                suburb,
+                postCode,
+                state,
+                mobile,
+                previousExperience,
+                age,
+                medical,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactRelationship,
+                acceptedCommsPermissions,
+                acceptedTermsAndConditions
+            } = args.volunteer;
+            return Volunteer.create({ 
+                firstName, 
+                lastName, 
+                email,
+                emailConfirmation,
+                address,
+                suburb,
+                postCode,
+                state,
+                mobile,
+                previousExperience,
+                age,
+                medical,
+                emergencyContactName,
+                emergencyContactPhone,
+                emergencyContactRelationship,
+                acceptedCommsPermissions,
+                acceptedTermsAndConditions
+            });
         },
         removeVolunteer: async (_, { volunteerId }) => {
             return await Volunteer.findByIdAndDelete(volunteerId);

@@ -16,6 +16,7 @@ function RolesChecklist() {
         const roles = data.getRoles;
         return (
             <div className="checkbox-form-contents">
+                <p className="additional-info">Which of the following Volunteer roles are you willing and able to do? (Select as many as are applicable)</p>
                 {
                     roles.map((role) => (
                     <div key={role._id}>

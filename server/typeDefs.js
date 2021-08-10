@@ -7,6 +7,21 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
+    emailConfirmation: String!
+    address: String
+    suburb: String
+    postCode: String
+    state: String
+    mobile: String
+    previousExperience: String
+    age: Int!
+    medical: String
+    emergencyContactName: String! 
+    emergencyContactPhone: Int!
+    emergencyContactRelationship: String!
+    acceptedCommsPermissions: Boolean!
+    acceptedTermsAndConditions: Boolean!
+
   }
 
   type Qualification {
@@ -25,6 +40,20 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
+    emailConfirmation: String!
+    address: String
+    suburb: String
+    postCode: String
+    state: String
+    mobile: String
+    previousExperience: String
+    age: Int!
+    medical: String
+    emergencyContactName: String! 
+    emergencyContactPhone: Int!
+    emergencyContactRelationship: String!
+    acceptedCommsPermissions: Boolean!
+    acceptedTermsAndConditions: Boolean!
   }
 
   input RoleInput {
@@ -40,7 +69,7 @@ const typeDefs = gql`
 
   # Queries that can be executed
   type Query {
-    volunteers: [Volunteer]!
+    getVolunteers: [Volunteer]!
     volunteer(volunteerId: ID!): Volunteer
     getRoles: [Role]!
     getQualifications: [Qualification]!
