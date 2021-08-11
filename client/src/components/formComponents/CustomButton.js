@@ -14,7 +14,6 @@ const CustomButton = ({
 
     const configForButton = {
         variant: 'contained',
-        fullWidth: true,
         color: 'primary',
         onClick: handleSubmit
     }

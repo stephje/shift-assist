@@ -9,13 +9,18 @@ const theme = createTheme({
         main: teal[400],
       },
       secondary: {
-        main: teal[400],
+        main: red[300],
       },
       error: {
         main: red.A400,
       },
       background: {
         default: '#fff',
+      },
+    },
+    typography: {
+      formHeader1: {
+        fontSize: 12,
       },
     },
   });
