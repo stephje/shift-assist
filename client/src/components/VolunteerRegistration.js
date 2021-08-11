@@ -1,191 +1,229 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { useFormik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { Button, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
-import { Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
+import {
+    Container,
+    Grid,
+    Typography
+} from '@material-ui/core'
+import CustomTextField from './formComponents/CustomTextField';
+import CustomCheckbox from './formComponents/CustomCheckbox';
+import CustomButton from './formComponents/CustomButton';
 
-const validationSchema = yup.object({
+const useStyles = makeStyles((theme) => ({
+    formWrapper: {
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(8),
+    }
+}));
+
+const INITIAL_FORM_STATE = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobile: '',
+    address: '',
+    suburb: '',
+    state: '',
+    postcode: '',
+    medical: '',
+    acceptedCommsPermissions: false,
+    termsAndConditions: false,
+    
+};
+
+const FORM_VALIDATION = yup.object().shape({
     firstName: yup
-        .string('Enter your first name')
-        .required('First name is required'),
+        .string()
+        .required('Required'),
     lastName: yup
-        .string('Enter your first name')
-        .required('Last name is required'),
-    address: yup
-        .string('Enter your address'),
-    suburb: yup
-        .string('Enter your town/suburb'),
-    postcode: yup
-        .string('Enter your postcode')
-        .required('Postcode is required'),
-    state: yup
-        .string('Enter your state'),
-    mobile: yup
-        .string('Enter your mobile phone number'),
+        .string()
+        .required('Required'),
     email: yup
-        .string('Enter your email')
-        .email('Enter a valid email')
-        .required('Email is required'),
+        .string()
+        .email('Please enter a valid email address')
+        .required('Required'),
+    mobile: yup
+        .string()
+        .required('Required'),
+    address: yup
+        .string(),
+    suburb: yup
+        .string(),
+    state: yup
+        .string(),
+    postcode: yup
+        .string()
+        .required('Required'),
+    medical: yup
+        .string(),
+    commsPermissions: yup
+        .boolean()
+        .oneOf([true], 'You must accept electronic communications to volunteer.')
+        .required('You must accept electronic communications to volunteer.'),
+    termsAndConditions: yup
+        .boolean()
+        .oneOf([true], 'The Terms and Conditions must be accepted.')
+        .required('The Terms and Conditions must be accepted.')
 });
 
+function onSubmit(values) {
+    console.log(values);
+}
+
 export default function VolunteerRegistration() {
-
-    const experienceOptions = {
-        "Option1": "Yes",
-        "Option2": "No"
-    };
-    Object.freeze(experienceOptions);
-
-    const formik = useFormik({
-        initialValues: {
-            firstName: '',
-            lastName: '',
-            address: '',
-            suburb: '',
-            postcode: '',
-            state: '',
-            mobile: '',
-            email: '',
-            previousExperience: experienceOptions.Option2.toString()
-        },
-        validationSchema: validationSchema,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
+    const classes = useStyles();
 
     return (
-        <div>
-            <form onSubmit={formik.handleSubmit}>
-                <Box display='flex'>
-                    <TextField
-                        fullWidth
-                        id='firstName'
-                        name='firstName'
-                        label='First Name*'
-                        value={formik.values.firstName}
-                        onChange={formik.handleChange}
-                        error={
-                            formik.touched.firstName &&
-                            Boolean(formik.errors.firstName)
-                        }
-                        helperText={
-                            formik.touched.firstName && formik.errors.firstName
-                        }
-                    />
-                    <TextField
-                        fullWidth
-                        id='lastName'
-                        name='lastName'
-                        label='Last Name*'
-                        value={formik.values.lastName}
-                        onChange={formik.handleChange}
-                        error={
-                            formik.touched.lastName &&
-                            Boolean(formik.errors.lastName)
-                        }
-                        helperText={
-                            formik.touched.lastName && formik.errors.lastName
-                        }
-                    />
-                </Box>
-                <TextField
-                    fullWidth
-                    id='address'
-                    name='address'
-                    label='Address'
-                    value={formik.values.address}
-                    onChange={formik.handleChange}
-                    error={
-                        formik.touched.address && Boolean(formik.errors.address)
-                    }
-                    helperText={formik.touched.address && formik.errors.address}
-                />
-                <TextField
-                    fullWidth
-                    id='suburb'
-                    name='suburb'
-                    label='Town/Suburb'
-                    value={formik.values.suburb}
-                    onChange={formik.handleChange}
-                    error={
-                        formik.touched.suburb && Boolean(formik.errors.suburb)
-                    }
-                    helperText={formik.touched.suburb && formik.errors.suburb}
-                />
-                <Box display='flex'>
-                    <TextField
-                        fullWidth
-                        id='postcode'
-                        name='postcode'
-                        label='Postcode*'
-                        value={formik.values.postcode}
-                        onChange={formik.handleChange}
-                        error={
-                            formik.touched.postcode &&
-                            Boolean(formik.errors.postcode)
-                        }
-                        helperText={
-                            formik.touched.postcode && formik.errors.postcode
-                        }
-                    />
-                    <TextField
-                        fullWidth
-                        id='state'
-                        name='state'
-                        label='State'
-                        value={formik.values.state}
-                        onChange={formik.handleChange}
-                        error={
-                            formik.touched.state && Boolean(formik.errors.state)
-                        }
-                        helperText={formik.touched.state && formik.errors.state}
-                    />
-                </Box>
-                <TextField
-                    fullWidth
-                    id='mobile'
-                    name='mobile'
-                    label='Mobile*'
-                    value={formik.values.mobile}
-                    onChange={formik.handleChange}
-                    error={
-                        formik.touched.mobile && Boolean(formik.errors.mobile)
-                    }
-                    helperText={formik.touched.mobile && formik.errors.mobile}
-                />
-                <TextField
-                    fullWidth
-                    id='email'
-                    name='email'
-                    label='Email Address*'
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
-                />
-                <Box my={2}>
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend">Have you previously worked as a volunteer at this
-                            festival?</FormLabel>
-                        <RadioGroup name='previousExperience' onChange={formik.handleChange}>
-                            <FormControlLabel value={experienceOptions.Option1.toString()} control={<Radio />} label="Option 1" />
-                            <FormControlLabel value={experienceOptions.Option2.toString()} control={<Radio />} label="Option 2" />
-                        </RadioGroup>
-                    </FormControl>
-                </Box>
-                <Box display='flex' justifyContent='center' my={2}>
-                    <Button
-                        color='primary'
-                        variant='contained'
-                        // fullWidth
-                        type='submit'
-                    >
-                        Submit
-                    </Button>
-                </Box>
-            </form>
-        </div>
+        <Grid container>
+            <Grid item xs={12}>
+                {/* Header Here */}
+            </Grid>
+            <Grid item xs={12}>
+                <Container maxWidth='md'>
+                    <div className={classes.formWrapper}>
+
+                        <Formik
+                            initialValues={{
+                                ...INITIAL_FORM_STATE
+                            }}
+                            validationSchema={FORM_VALIDATION}
+                            onSubmit={onSubmit}
+                        >
+                            <Form>
+                                <Grid container spacing={2}>
+
+                                    <Grid item xs={12}>
+                                        <Typography>
+                                            Basic Details
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        <CustomTextField
+                                            name='firstName'
+                                            label='First Name'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        <CustomTextField
+                                            name='lastName'
+                                            label='Last Name'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='email'
+                                            label='Email Address'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='mobile'
+                                            label='Mobile Phone Number'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='address'
+                                            label='Address'
+                                        />
+                                    </Grid>
+
+                                    
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='suburb'
+                                            label='Suburb'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        <CustomTextField
+                                            name='postcode'
+                                            label='Postcode'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        <CustomTextField
+                                            name='state'
+                                            label='State'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='medical'
+                                            label='Medical'
+                                            multiline={true}
+                                            rows={5}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Typography>
+                                            Volunteer Areas
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Typography>
+                                            Qualifications
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Typography>
+                                            Availability
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Typography>
+                                            Emergency Contact Details
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Typography>
+                                            Volunteer Obligations
+                                        </Typography>
+
+                                        <Grid item xs={12}>
+                                            <CustomCheckbox 
+                                            name='commsPermissions'
+                                            legend='Electronic Communications'
+                                            label='I consent to receive electronic communications in
+                                            the form of email, SMS or phone.'/>
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <CustomCheckbox 
+                                            name='termsAndConditions'
+                                            legend='Terms and Conditions'
+                                            label='I accept the Volunteer Terms and Conditions.'/>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <CustomButton>
+                                            Submit
+                                        </CustomButton>
+                                    </Grid>
+
+                                </Grid>
+                            </Form>
+                        </Formik>
+
+                    </div>
+                </Container>
+            </Grid>
+        </Grid>
     );
-}
+};
