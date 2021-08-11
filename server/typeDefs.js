@@ -7,26 +7,27 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    emailConfirmation: String!
+    mobile: String!
     address: String
     suburb: String
-    postCode: String
     state: String
-    mobile: String
-    previousExperience: String
+    postCode: String!
+    previousExperience: String!
     age: Int!
     medical: String
     emergencyContactName: String! 
-    emergencyContactPhone: Int!
     emergencyContactRelationship: String!
-    acceptedCommsPermissions: Boolean!
-    acceptedTermsAndConditions: Boolean!
-
+    emergencyContactPhone: String!
+    commsPermissions: Boolean!
+    termsAndConditions: Boolean!
+    nominatedRoles: [Role]
+    qualificationsHeld: [Qualification]
   }
 
   type Qualification {
     _id: ID
     name: String!
+    label: String!
   }
 
   type Role {

@@ -6,12 +6,15 @@ import {
     Box,
     Container,
     Grid,
-    Typography
+    Typography,
+    FormLabel
 } from '@material-ui/core'
 import CustomTextField from './formComponents/CustomTextField';
 import CustomCheckbox from './formComponents/CustomCheckbox';
 import CustomButton from './formComponents/CustomButton';
 import CustomRadioGroup from './formComponents/CustomRadioGroup';
+import RolesChecklist from '../containers/RolesChecklist';
+import QualificationsChecklist from '../containers/QualificationsChecklist';
 
 const useStyles = makeStyles((theme) => ({
     formWrapper: {
@@ -31,9 +34,12 @@ const INITIAL_FORM_STATE = {
     postcode: '',
     previousExperience: 'No',
     medical: '',
+    emergencyContactName: '',
+    emergencyContactRelationship: '',
+    emergencyContactPhone: '',
     commsPermissions: false,
     termsAndConditions: false,
-    
+
 };
 
 const FORM_VALIDATION = yup.object().shape({
@@ -61,9 +67,18 @@ const FORM_VALIDATION = yup.object().shape({
         .required('Required'),
     previousExperience: yup
         .string()
-        .required(),
+        .required('Required'),
     medical: yup
         .string(),
+    emergencyContactName: yup
+        .string()
+        .required('Required'),
+    emergencyContactRelationship: yup
+        .string()
+        .required('Required'),
+    emergencyContactPhone: yup
+        .string()
+        .required('Required'),
     commsPermissions: yup
         .boolean()
         .oneOf([true], 'You must accept electronic communications to volunteer.')
@@ -101,7 +116,7 @@ export default function VolunteerRegistration() {
                                 <Grid container spacing={2}>
 
                                     <Grid item xs={12}>
-                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1} mb={1}>
+                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1}>
                                             <Typography variant='h5' component='h2'>
                                                 Volunteer Details
                                             </Typography>
@@ -143,7 +158,7 @@ export default function VolunteerRegistration() {
                                         />
                                     </Grid>
 
-                                    
+
                                     <Grid item xs={12}>
                                         <CustomTextField
                                             name='suburb'
@@ -184,7 +199,7 @@ export default function VolunteerRegistration() {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1} mb={1}>
+                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1}>
                                             <Typography variant='h5' component='h2'>
                                                 Volunteer Areas
                                             </Typography>
@@ -192,7 +207,14 @@ export default function VolunteerRegistration() {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1} mb={1}>
+                                        <FormLabel component="legend">
+                                            Select the areas in which you would prefer to volunteer. Please choose several options
+                                        </FormLabel>
+                                        <RolesChecklist />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1}>
                                             <Typography variant='h5' component='h2'>
                                                 Qualifications
                                             </Typography>
@@ -200,7 +222,15 @@ export default function VolunteerRegistration() {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1} mb={1}>
+                                        <FormLabel component="legend">
+                                            Check all that apply
+                                        </FormLabel>
+                                        <QualificationsChecklist />
+
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1}>
                                             <Typography variant='h5' component='h2'>
                                                 Availability
                                             </Typography>
@@ -208,7 +238,7 @@ export default function VolunteerRegistration() {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1} mb={1}>
+                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1}>
                                             <Typography variant='h5' component='h2'>
                                                 Emergency Contact Details
                                             </Typography>
@@ -216,26 +246,47 @@ export default function VolunteerRegistration() {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1} mb={1} >
+                                        <CustomTextField
+                                            name='emergencyContactName'
+                                            label='Emergency Contact Name*'
+                                        />
+                                    </Grid>
+                                    
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='emergencyContactRelationship'
+                                            label='Relationship to You*'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name='emergencyContactPhone'
+                                            label='Emergency Contact Phone*'
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <Box align='center' bgcolor='primary.main' color='#ffffff' p={1}>
                                             <Typography variant='h5' component='h2'>
                                                 Volunteer Obligations
                                             </Typography>
                                         </Box>
+                                    </Grid>
 
-                                        <Grid item xs={12}>
-                                            <CustomCheckbox 
+                                    <Grid item xs={12}>
+                                        <CustomCheckbox
                                             name='commsPermissions'
                                             legend='Electronic Communications*'
                                             label='I consent to receive electronic communications in
-                                            the form of email, SMS or phone.'/>
-                                        </Grid>
+                                        the form of email, SMS or phone.'/>
+                                    </Grid>
 
-                                        <Grid item xs={12}>
-                                            <CustomCheckbox 
+                                    <Grid item xs={12}>
+                                        <CustomCheckbox
                                             name='termsAndConditions'
                                             legend='Terms and Conditions*'
-                                            label='I accept the Volunteer Terms and Conditions.'/>
-                                        </Grid>
+                                            label='I accept the Volunteer Terms and Conditions.' />
                                     </Grid>
 
                                     <Grid item xs={12} align='center'>

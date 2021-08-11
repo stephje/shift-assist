@@ -23,7 +23,7 @@ const CustomCheckbox = ({
     };
 
     const configForCheckbox = {
-        ...field,
+        ...field, 
         onChange: handleChange
     };
 
