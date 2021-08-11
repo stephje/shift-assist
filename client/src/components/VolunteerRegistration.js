@@ -28,7 +28,7 @@ const INITIAL_FORM_STATE = {
     state: '',
     postcode: '',
     medical: '',
-    acceptedCommsPermissions: false,
+    commsPermissions: false,
     termsAndConditions: false,
     
 };
