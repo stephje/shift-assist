@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Button, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core';
 import { Box } from '@material-ui/core';
-
 
 const validationSchema = yup.object({
     firstName: yup
@@ -15,16 +13,16 @@ const validationSchema = yup.object({
         .string('Enter your first name')
         .required('Last name is required'),
     address: yup
-    .string('Enter your address'),
+        .string('Enter your address'),
     suburb: yup
-    .string('Enter your town/suburb'),
+        .string('Enter your town/suburb'),
     postcode: yup
-    .string('Enter your postcode')
-    .required('Postcode is required'),
+        .string('Enter your postcode')
+        .required('Postcode is required'),
     state: yup
-    .string('Enter your state'),
+        .string('Enter your state'),
     mobile: yup
-    .string('Enter your mobile phone number'),
+        .string('Enter your mobile phone number'),
     email: yup
         .string('Enter your email')
         .email('Enter a valid email')
@@ -32,6 +30,13 @@ const validationSchema = yup.object({
 });
 
 export default function VolunteerRegistration() {
+
+    const experienceOptions = {
+        "Option1": "Yes",
+        "Option2": "No"
+    };
+    Object.freeze(experienceOptions);
+
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -42,6 +47,7 @@ export default function VolunteerRegistration() {
             state: '',
             mobile: '',
             email: '',
+            previousExperience: experienceOptions.Option2.toString()
         },
         validationSchema: validationSchema,
         onSubmit: values => {
@@ -61,7 +67,7 @@ export default function VolunteerRegistration() {
                         value={formik.values.firstName}
                         onChange={formik.handleChange}
                         error={
-                            formik.touched.firstName &&4
+                            formik.touched.firstName &&
                             Boolean(formik.errors.firstName)
                         }
                         helperText={
@@ -159,15 +165,25 @@ export default function VolunteerRegistration() {
                     error={formik.touched.email && Boolean(formik.errors.email)}
                     helperText={formik.touched.email && formik.errors.email}
                 />
+                <Box my={2}>
+                    <FormControl component="fieldset">
+                        <FormLabel component="legend">Have you previously worked as a volunteer at this
+                            festival?</FormLabel>
+                        <RadioGroup name='previousExperience' onChange={formik.handleChange}>
+                            <FormControlLabel value={experienceOptions.Option1.toString()} control={<Radio />} label="Option 1" />
+                            <FormControlLabel value={experienceOptions.Option2.toString()} control={<Radio />} label="Option 2" />
+                        </RadioGroup>
+                    </FormControl>
+                </Box>
                 <Box display='flex' justifyContent='center' my={2}>
-                <Button
-                    color='primary'
-                    variant='contained'
-                    // fullWidth
-                    type='submit'
-                >
-                    Submit
-                </Button>
+                    <Button
+                        color='primary'
+                        variant='contained'
+                        // fullWidth
+                        type='submit'
+                    >
+                        Submit
+                    </Button>
                 </Box>
             </form>
         </div>
