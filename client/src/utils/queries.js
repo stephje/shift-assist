@@ -34,7 +34,7 @@ export const GET_ROLES = gql`
             name
             label
             qualifications {
-                name
+                _id
             }
         }
     }
