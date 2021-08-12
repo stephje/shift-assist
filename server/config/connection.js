@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
     mongoose.connect(
-        process.env.MONGODB_URI || 'mongodb://localhost/shiftassistDB',
+        process.env.MONGODB_URI,
         {
             useNewUrlParser: true,
             useCreateIndex: true,

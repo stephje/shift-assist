@@ -1,10 +1,9 @@
 const dotenv = require('dotenv');
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
+const mongoose = require('mongoose');
+const { ApolloServer, gql } = require('apollo-server-express');
 const path = require('path');
-// const connectDB = require('./config/connection')
-const db = require('./config/connection');
-
+// const db = require('./config/connection')
 
 dotenv.config();
 
@@ -30,6 +29,17 @@ async function startApolloServer() {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
 
+    await mongoose.connect(
+        process.env.MONGODB_URI,
+        {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+        }
+    );
+    console.log('MongoDB Connected');
+1
     await new Promise(resolve => app.listen({ port: PORT }, resolve));
     console.log(
         `Server listening on port ${PORT}, graphql at http://localhost:${PORT}${server.graphqlPath}`

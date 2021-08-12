@@ -1,0 +1,12 @@
+[
+    {
+        "name": "barAttendant",
+        "label": "Bar Attendant",
+        "qualifications": ["rsa"]
+    },
+    {
+        "name": "barManager",
+        "label": "Bar Manager",
+        "qualifications": ["mlp"]
+    }
+]
