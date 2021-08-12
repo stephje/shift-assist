@@ -24,7 +24,7 @@ function QualificationsChecklist() {
                 {qualifications.map((qualification) => (
                     <CustomCheckbox 
                     key={qualification._id}
-                    name={qualification.label}
+                    name={qualification.name}
                     label={titleCase(qualification.label)}/>
                     ))}
             </Grid>
