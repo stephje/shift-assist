@@ -37,24 +37,31 @@ const typeDefs = gql`
     qualifications: [Qualification]
   }
 
+  type Shift {
+    date: String!
+    time: String!
+    role: Role!
+  }
+
   input VolunteerInput {
     firstName: String!
     lastName: String!
     email: String!
-    emailConfirmation: String!
+    mobile: String!
     address: String
     suburb: String
-    postCode: String
     state: String
-    mobile: String
-    previousExperience: String
+    postCode: String!
+    previousExperience: String!
     age: Int!
     medical: String
     emergencyContactName: String! 
-    emergencyContactPhone: Int!
     emergencyContactRelationship: String!
-    acceptedCommsPermissions: Boolean!
-    acceptedTermsAndConditions: Boolean!
+    emergencyContactPhone: String!
+    commsPermissions: Boolean!
+    termsAndConditions: Boolean!
+    nominatedRoles: [RoleInput]
+    qualificationsHeld: [QualificationInput]
   }
 
   input RoleInput {

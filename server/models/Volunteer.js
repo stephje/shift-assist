@@ -17,6 +17,64 @@ const volunteerSchema = new Schema({
     trim: true,
     unique: true,
   },
+  mobile: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  address: {
+    type: String,
+  },
+  suburb: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  postCode: {
+    type: String,
+    required: true,
+  },
+  previousExperience: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: String,
+    required: true,
+  },
+  medical: {
+    type: String,
+  },
+  emergencyContactName: {
+    type: String,
+    required: true,
+  },
+  emergencyContactRelationship: {
+    type: String,
+    required: true,
+  },
+  emergencyContactPhone: {
+    type: String,
+    required: true,
+  },
+  commsPermissions: {
+    type: Boolean,
+    required: true,
+  },
+  termsAndConditions: {
+    type: Boolean,
+    required: true,
+  },
+  nominatedRoles: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Role'
+  }],
+  qualificationsHeld: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Qualification'
+  }]
+
 });
 
 const Volunteer = model('volunteer', volunteerSchema);

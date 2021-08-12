@@ -190,9 +190,15 @@ export default function VolunteerRegistration() {
                                     </Grid>
 
                                     <Grid item xs={12}>
+                                    <FormLabel component="legend">
+                                        If you have any injury or pre-existing medical condition that may limit the activities that you can undertake or which may be aggravated by some activities, please list these below:
+                                        </FormLabel>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
                                         <CustomTextField
                                             name='medical'
-                                            label='Medical'
+                                            label=''
                                             multiline={true}
                                             rows={5}
                                         />

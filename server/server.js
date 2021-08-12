@@ -1,14 +1,15 @@
 const dotenv = require('dotenv');
 const express = require('express');
-const mongoose = require('mongoose');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+// const connectDB = require('./config/connection')
+const db = require('./config/connection');
+
 
 dotenv.config();
 
 async function startApolloServer() {
-    const typeDefs = require('./typeDefs');
-    const resolvers = require('./resolvers');
+    const { typeDefs, resolvers } = require('./schemas');
 
     const PORT = process.env.PORT || 4000
     const app = express();
@@ -28,17 +29,6 @@ async function startApolloServer() {
     app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
-
-    await mongoose.connect(
-        process.env.MONGODB_URI || 'mongodb://localhost/shiftassistDB',
-        {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false,
-        }
-    );
-    console.log('MongoDB Connected');
 
     await new Promise(resolve => app.listen({ port: PORT }, resolve));
     console.log(

@@ -11,9 +11,10 @@ const roleSchema = new Schema({
     required: true,
     trim: true,
   },
-  qualifications: {
-    type: Array,
-  },
+  qualifications: [{
+    type: Schema.Types.ObjectId,
+    ref: "Qualification"
+  }]
 });
 
 const Role = model('role', roleSchema);

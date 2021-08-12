@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Responsible Service of Alcohol",
+        "label": "rsa"
+    },
+    {
+        "name": "Management of Licensed Premises",
+        "label": "mlp"
+    },
+    {
+        "name": "Senior First Aid",
+        "label": "sfa"
+    },
+    {
+        "name": "Passenger Transport Driver Authorisation",
+        "label": "ptd"
+    },
+    {
+        "name": "Working With Children Check",
+        "label": "wwc"
+    }
+]

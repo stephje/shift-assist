@@ -1,6 +1,6 @@
-const Volunteer = require('./models/Volunteer');
-const Role = require('./models/Role');
-const Qualification = require('./models/Qualification')
+const Volunteer = require('../models/Volunteer');
+const Role = require('../models/Role');
+const Qualification = require('../models/Qualification')
 
 module.exports = {
     Query: {
@@ -27,39 +27,41 @@ module.exports = {
                 firstName, 
                 lastName, 
                 email,
-                emailConfirmation,
                 address,
                 suburb,
-                postCode,
                 state,
+                postCode,
                 mobile,
                 previousExperience,
                 age,
                 medical,
                 emergencyContactName,
-                emergencyContactPhone,
                 emergencyContactRelationship,
-                acceptedCommsPermissions,
-                acceptedTermsAndConditions
+                emergencyContactPhone,
+                commsPermissions,
+                termsAndConditions,
+                nominatedRoles,
+                qualificationsHeld
             } = args.volunteer;
             return Volunteer.create({ 
                 firstName, 
                 lastName, 
                 email,
-                emailConfirmation,
                 address,
                 suburb,
-                postCode,
                 state,
+                postCode,
                 mobile,
                 previousExperience,
                 age,
                 medical,
                 emergencyContactName,
-                emergencyContactPhone,
                 emergencyContactRelationship,
-                acceptedCommsPermissions,
-                acceptedTermsAndConditions
+                emergencyContactPhone,
+                commsPermissions,
+                termsAndConditions,
+                nominatedRoles,
+                qualificationsHeld
             });
         },
         removeVolunteer: async (_, { volunteerId }) => {
