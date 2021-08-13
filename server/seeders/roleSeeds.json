@@ -1,0 +1,34 @@
+[
+    {
+        "name": "barAttendant",
+        "label": "Bar Attendant (Requires RSA)",
+        "qualifications": ["rsa"]
+    },
+    {
+        "name": "barManager",
+        "label": "Bar Manager (Requires MLP)",
+        "qualifications": ["mlp"]
+    },
+    {
+        "name": "shuttleBusDriver",
+        "label": "Shuttle Bus Driver (Requires PTD Authorisation)",
+        "qualifications": ["ptd"]
+    },
+    {
+        "name": "firstAidAttendant",
+        "label": "First Aid Attendant (Requries Senior First Aid Certificate or higher)",
+        "qualifications": ["sfa"]
+    },
+    {
+        "name": "ticketOfficeAttendant",
+        "label": "Ticket Office Attendant"
+    },
+    {
+        "name": "merchAttendant",
+        "label": "Merchandise Shop Attendant"
+    },
+    {
+        "name": "wasteCrewMember",
+        "label": "Waste Crew (Rubbish Pick-Up)"
+    }
+]

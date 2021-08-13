@@ -1,0 +1,14 @@
+[
+    {
+        "name": "morning",
+        "label": "07:00 - 12:00 (Morning)"
+    },
+    {
+        "name": "afternoon",
+        "label": "12:00 - 17:00 (Afternoon)"
+    },
+    {
+        "name": "evening",
+        "label": "17:00 - 00:00 (Evening)"
+    }
+]
