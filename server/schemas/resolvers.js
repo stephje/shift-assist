@@ -1,6 +1,4 @@
-const Volunteer = require('../models/Volunteer');
-const Role = require('../models/Role');
-const Qualification = require('../models/Qualification')
+const { Volunteer, Role, Qualification, Timeslot } = require('../models');
 
 module.exports = {
     Query: {
@@ -18,6 +16,9 @@ module.exports = {
 
         getQualifications: async () => {
             return await Qualification.find().sort({ name: 1 });
+        },
+        getTimeslots: async () => {
+            return await Timeslot.find().sort({label: 1});
         },
     },
 

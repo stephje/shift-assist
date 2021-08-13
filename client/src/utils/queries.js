@@ -49,3 +49,13 @@ export const GET_QUALIFICATIONS = gql`
         }
     }
 `;
+
+export const GET_TIMESLOTS = gql`
+    query getTimeslots {
+        getTimeslots {
+            _id
+            name
+            label
+        }
+    }
+`;

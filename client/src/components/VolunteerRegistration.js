@@ -15,6 +15,7 @@ import CustomButton from './formComponents/CustomButton';
 import CustomRadioGroup from './formComponents/CustomRadioGroup';
 import RolesChecklist from '../containers/RolesChecklist';
 import QualificationsChecklist from '../containers/QualificationsChecklist';
+import TimeslotChecklist from '../containers/TimeslotChecklist';
 
 const useStyles = makeStyles((theme) => ({
     formWrapper: {
@@ -230,7 +231,7 @@ export default function VolunteerRegistration() {
                                     <Grid item xs={12}>
                                         <FormLabel component="legend">
                                             Check all that apply
-                                        </FormLabel>
+                                        </FormLabel >
                                         <QualificationsChecklist />
 
                                     </Grid>
@@ -241,6 +242,13 @@ export default function VolunteerRegistration() {
                                                 Availability
                                             </Typography>
                                         </Box>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <FormLabel component="legend">
+                                            Check all that apply
+                                        </FormLabel >
+                                        <TimeslotChecklist />
                                     </Grid>
 
                                     <Grid item xs={12}>

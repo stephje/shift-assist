@@ -2,8 +2,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const db = require('../config/connection');
-const { Qualification, Role } = require ('../models')
+const { Qualification, Role, Timeslot } = require ('../models')
 const qualificationSeeds = require('./qualificationSeeds.json')
+const timeslotSeeds = require('./timeslotSeeds.json')
 const roleSeeds = require('./roleSeeds.json')
 
 const qualificationsCollection = db.collection("qualifications");
@@ -12,6 +13,8 @@ db.once('open', async () => {
     try {
       await Qualification.deleteMany({});
       await Qualification.create(qualificationSeeds);
+      await Timeslot.deleteMany({});
+      await Timeslot.create(timeslotSeeds);
       await Role.deleteMany({});
 
       for (const role of roleSeeds) {

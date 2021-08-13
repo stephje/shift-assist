@@ -38,9 +38,17 @@ const typeDefs = gql`
   }
 
   type Shift {
+    _id: ID
     date: String!
     time: String!
     role: Role!
+    timeslot: Timeslot!
+  }
+
+  type Timeslot {
+    _id: ID
+    name: String!
+    label: String!
   }
 
   input VolunteerInput {
@@ -75,12 +83,25 @@ const typeDefs = gql`
     label: String!
   }
 
+  input ShiftInput {
+    date: String!
+    time: String! 
+    role: RoleInput!
+    timeslot: TimeslotInput!
+  }
+
+  input TimeslotInput {
+    name: String!
+    label: String!
+  }
+
   # Queries that can be executed
   type Query {
     getVolunteers: [Volunteer]!
     volunteer(volunteerId: ID!): Volunteer
     getRoles: [Role]!
     getQualifications: [Qualification]!
+    getTimeslots: [Timeslot]!
   }
 
   type Mutation {
@@ -89,6 +110,8 @@ const typeDefs = gql`
     updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
     addRole(role: RoleInput): Role
     addQualification(qualification: QualificationInput): Qualification
+    addShift(shift: ShiftInput): Shift
+    addTimeslot(timeslot: TimeslotInput): Timeslot
   }
 
 `;
