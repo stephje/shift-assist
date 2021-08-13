@@ -22,7 +22,7 @@ function QualificationsChecklist() {
         return (
             <Grid item xs={12}>
                 {qualifications.map((qualification) => (
-                <Grid item xs={12}>
+                <Grid item xs={12} key={qualification._id}>
                     <CustomCheckbox 
                     key={qualification._id}
                     name={qualification.name}

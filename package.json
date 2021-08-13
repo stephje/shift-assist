@@ -23,5 +23,8 @@
   "homepage": "https://github.com/stephje/shift-assist#readme",
   "devDependencies": {
     "concurrently": "^6.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
   }
 }

@@ -8,20 +8,21 @@ export const GET_VOLUNTEERS = gql`
             firstName, 
             lastName, 
             email,
-            emailConfirmation,
+            mobile,
             address,
             suburb,
-            postCode,
             state,
-            mobile,
+            postCode,
             previousExperience,
-            age,
             medical,
             emergencyContactName,
-            emergencyContactPhone,
             emergencyContactRelationship,
-            acceptedCommsPermissions,
-            acceptedTermsAndConditions
+            emergencyContactPhone,
+            commsPermissions,
+            termsAndConditions,
+            nominatedRoles,
+            qualificationsHeld,
+            availability 
             }
         }
     }

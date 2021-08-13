@@ -1,5 +1,15 @@
 const { Volunteer, Role, Qualification, Timeslot } = require('../models');
 
+async function getObjectIds(arrayOfElements, collection) {
+    let newArray = [];
+    for (const element of arrayOfElements) {
+        const document = await collection.findOne({name: element});
+        const documentId = document._id;
+        newArray.push(documentId);
+    }
+    return newArray;
+}
+
 module.exports = {
     Query: {
         getVolunteers: async () => {
@@ -23,47 +33,19 @@ module.exports = {
     },
 
     Mutation: {
-        addVolunteer: async (_, args) => {
-            const { 
-                firstName, 
-                lastName, 
-                email,
-                address,
-                suburb,
-                state,
-                postCode,
-                mobile,
-                previousExperience,
-                age,
-                medical,
-                emergencyContactName,
-                emergencyContactRelationship,
-                emergencyContactPhone,
-                commsPermissions,
-                termsAndConditions,
-                nominatedRoles,
-                qualificationsHeld
-            } = args.volunteer;
-            return Volunteer.create({ 
-                firstName, 
-                lastName, 
-                email,
-                address,
-                suburb,
-                state,
-                postCode,
-                mobile,
-                previousExperience,
-                age,
-                medical,
-                emergencyContactName,
-                emergencyContactRelationship,
-                emergencyContactPhone,
-                commsPermissions,
-                termsAndConditions,
-                nominatedRoles,
-                qualificationsHeld
-            });
+        addVolunteer: async (_, {volunteer}) => {
+
+            console.log(volunteer)
+            
+            volunteer.qualificationsHeld = await getObjectIds(volunteer.qualificationsHeld, Qualification);
+
+            volunteer.availability = await getObjectIds(volunteer.availability, Timeslot);
+
+            volunteer.nominatedRoles = await getObjectIds(volunteer.nominatedRoles, Role);
+
+            console.log("Volunter", volunteer)
+
+            return Volunteer.create(volunteer);
         },
         removeVolunteer: async (_, { volunteerId }) => {
             return await Volunteer.findByIdAndDelete(volunteerId);
@@ -77,12 +59,10 @@ module.exports = {
                 { new: true }
             );
         },
-        addRole: async (_, args) => {
-            const { name, label, qualifications } = args.role;
+        addRole: async (_, { name, label, qualifications }) => {
             return Role.create({ name, label, qualifications });
         },
-        addQualification: async (_, args) => {
-            const { name } = args.qualification;
+        addQualification: async (_, {name}) => {
             return Qualification.create({ name });
         },
     },

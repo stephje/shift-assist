@@ -16,6 +16,8 @@ import CustomRadioGroup from './formComponents/CustomRadioGroup';
 import RolesChecklist from '../containers/RolesChecklist';
 import QualificationsChecklist from '../containers/QualificationsChecklist';
 import TimeslotChecklist from '../containers/TimeslotChecklist';
+import { ADD_VOLUNTEER } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
     formWrapper: {
@@ -40,7 +42,6 @@ const INITIAL_FORM_STATE = {
     emergencyContactPhone: '',
     commsPermissions: false,
     termsAndConditions: false,
-
 };
 
 const FORM_VALIDATION = yup.object().shape({
@@ -90,12 +91,65 @@ const FORM_VALIDATION = yup.object().shape({
         .required('The Terms and Conditions must be accepted.')
 });
 
-function onSubmit(values) {
-    console.log(values);
-}
 
 export default function VolunteerRegistration() {
     const classes = useStyles();
+
+    const [addVolunteer] = useMutation(ADD_VOLUNTEER);
+
+    async function onSubmit(values) {
+        let volunteerObject = {};
+        let availabilityArray = [];
+        let rolesArray = [];
+        let qualificationsArray = [];
+
+        const timeslots = [
+            "morning",
+            "afternoon",
+            "evening"
+        ]
+        
+        const qualifications = [
+            "rsa",
+            "mlp",
+            "sfa",
+            "ptd"
+        ]
+
+        const roles = [
+            "barAttendant",
+            "barManager",
+            "shuttleBusDriver",
+            "firstAidAttendant",
+            "ticketOfficeAttendant",
+            "merchAttendant",
+            "wasteCrewMember"
+        ]
+
+        for (const property in values) {
+            if (timeslots.includes(property) && values[property] === true) {
+                availabilityArray.push(property)
+            } else if (qualifications.includes(property) && values[property] === true) {
+                qualificationsArray.push(property)
+            } else if (roles.includes(property) && values[property] === true) {
+                rolesArray.push(property)
+            } else if (values[property] !== false) {
+                volunteerObject[property]= values[property]
+            }
+        }
+
+        volunteerObject.availability = availabilityArray;
+        volunteerObject.nominatedRoles = rolesArray;
+        volunteerObject.qualificationsHeld = qualificationsArray;
+
+        console.log("Volunteer Object", volunteerObject)
+
+        try {
+            await addVolunteer({variables: {volunteer: volunteerObject}});
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <Grid container>

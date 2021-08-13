@@ -31,15 +31,11 @@ const volunteerSchema = new Schema({
   state: {
     type: String,
   },
-  postCode: {
+  postcode: {
     type: String,
     required: true,
   },
   previousExperience: {
-    type: String,
-    required: true,
-  },
-  age: {
     type: String,
     required: true,
   },
@@ -73,6 +69,10 @@ const volunteerSchema = new Schema({
   qualificationsHeld: [{
     type: Schema.Types.ObjectId,
     ref: 'Qualification'
+  }],
+  availability: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Timeslot'
   }]
 
 });

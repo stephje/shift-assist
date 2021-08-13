@@ -2,8 +2,10 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const db = require('../config/connection');
+
 const { Qualification, Role, Timeslot } = require ('../models')
 const qualificationSeeds = require('./qualificationSeeds.json')
+
 const timeslotSeeds = require('./timeslotSeeds.json')
 const roleSeeds = require('./roleSeeds.json')
 

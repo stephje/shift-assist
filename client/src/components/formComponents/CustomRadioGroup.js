@@ -4,7 +4,6 @@ import {
     RadioGroup,
     FormControl,
     FormControlLabel,
-    FormGroup,
     FormLabel
 } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';

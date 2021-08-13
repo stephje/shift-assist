@@ -22,7 +22,7 @@ function RolesChecklist() {
         return (
             <Grid item xs={12}>
                 {roles.map((role) => (
-                <Grid item xs={12}>
+                <Grid item xs={12} key={role._id}>
                     <CustomCheckbox 
                     key={role._id}
                     name={role.name}

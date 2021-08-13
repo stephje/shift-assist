@@ -11,9 +11,8 @@ const typeDefs = gql`
     address: String
     suburb: String
     state: String
-    postCode: String!
+    postcode: String!
     previousExperience: String!
-    age: Int!
     medical: String
     emergencyContactName: String! 
     emergencyContactRelationship: String!
@@ -22,33 +21,7 @@ const typeDefs = gql`
     termsAndConditions: Boolean!
     nominatedRoles: [Role]
     qualificationsHeld: [Qualification]
-  }
-
-  type Qualification {
-    _id: ID
-    name: String!
-    label: String!
-  }
-
-  type Role {
-    _id: ID
-    name: String!
-    label: String!
-    qualifications: [Qualification]
-  }
-
-  type Shift {
-    _id: ID
-    date: String!
-    time: String!
-    role: Role!
-    timeslot: Timeslot!
-  }
-
-  type Timeslot {
-    _id: ID
-    name: String!
-    label: String!
+    availability: [Timeslot]
   }
 
   input VolunteerInput {
@@ -59,28 +32,49 @@ const typeDefs = gql`
     address: String
     suburb: String
     state: String
-    postCode: String!
+    postcode: String!
     previousExperience: String!
-    age: Int!
     medical: String
     emergencyContactName: String! 
     emergencyContactRelationship: String!
     emergencyContactPhone: String!
     commsPermissions: Boolean!
     termsAndConditions: Boolean!
-    nominatedRoles: [RoleInput]
-    qualificationsHeld: [QualificationInput]
+    nominatedRoles: [String]
+    qualificationsHeld: [String]
+    availability: [String]
   }
 
-  input RoleInput {
+  type Qualification {
+    _id: ID
     name: String!
     label: String!
-    qualifications: [QualificationInput]
   }
 
   input QualificationInput {
+    name: String
+    label: String
+  }
+
+  type Role {
+    _id: ID
     name: String!
     label: String!
+    qualifications: [Qualification]
+  }
+
+  input RoleInput {
+    name: String
+    label: String
+    qualifications: [QualificationInput]
+  }
+
+  type Shift {
+    _id: ID
+    date: String!
+    time: String!
+    role: Role!
+    timeslot: Timeslot!
   }
 
   input ShiftInput {
@@ -90,9 +84,15 @@ const typeDefs = gql`
     timeslot: TimeslotInput!
   }
 
-  input TimeslotInput {
+  type Timeslot {
+    _id: ID
     name: String!
     label: String!
+  }
+
+  input TimeslotInput {
+    name: String
+    label: String
   }
 
   # Queries that can be executed

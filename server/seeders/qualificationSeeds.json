@@ -14,9 +14,5 @@
     {
         "name": "ptd",
         "label": "Passenger Transport Driver Authorisation"
-    },
-    {
-        "name": "wwc",
-        "label": "Working With Children Check"
     }
 ]

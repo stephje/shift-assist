@@ -22,7 +22,7 @@ function TimeslotChecklist() {
         return (
             <Grid item xs={12}>
                 {timeslots.map((timeslot) => (
-                <Grid item xs={12}>
+                <Grid item xs={12} key={timeslot._id}>
                     <CustomCheckbox 
                     key={timeslot._id}
                     name={timeslot.name}
