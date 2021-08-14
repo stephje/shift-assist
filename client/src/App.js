@@ -1,10 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { 
+  ApolloClient, 
+  ApolloProvider, 
+  InMemoryCache 
+} from '@apollo/client';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Signup from './pages/Signup';
+import AdminConsole from './pages/AdminConsole';
+import UserConsole from './pages/UserConsole';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -20,17 +27,26 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/adminconsole">
+              <AdminConsole />
+            </Route>
+            <Route exact path="/userconsole">
+              <UserConsole />
+            </Route>
             <Route exact path="/register">
               <Register />
             </Route>
             <Route exact path="/login">
               <Login />
             </Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
             <Route>
               <NotFound />
             </Route>
           </Switch>
-        </div>
+        </div> 
       </Router>
     </ApolloProvider>
   );

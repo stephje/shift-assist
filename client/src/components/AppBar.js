@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Auth from '../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
 
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -34,7 +40,14 @@ export default function ButtonAppBar() {
             ShiftAssist
           </Typography>
           <Button variant="contained" color="primary" component={Link} to="/register" disableElevation>Volunteer Registration</Button>
+          {Auth.loggedIn() ? (
+          <Button variant="contained" color="primary" onClick={logout} disableElevation>Logout</Button>
+          ) : (
+            <>
           <Button variant="contained" color="primary" component={Link} to="/login" disableElevation>Login</Button>
+            </>
+          )}
+
         </Toolbar>
       </AppBar>
     </div>

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:4000",
-  "engines": {"node": "16.x"},
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@apollo/client": "^3.4.5",
     "@material-ui/core": "^4.12.3",
@@ -13,6 +15,7 @@
     "@testing-library/user-event": "^12.1.10",
     "formik": "^2.2.9",
     "formik-material-ui": "^3.0.1",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",

@@ -1,25 +1,30 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-// const db = require('./config/connection')
 
-// dotenv.config();
+const { typeDefs, resolvers } = require('./schemas');
+const { authMiddleware } = require('./utils/auth');
 
 async function startApolloServer() {
-    const { typeDefs, resolvers } = require('./schemas');
 
     const PORT = process.env.PORT || 4000
     const app = express();
 
-    const server = new ApolloServer({ typeDefs, resolvers });
+    const server = new ApolloServer({ 
+        typeDefs, 
+        resolvers, 
+        context: authMiddleware });
+
     await server.start();
 
     server.applyMiddleware({ app });
 
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
+
+    app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
     if (process.env.NODE_ENV === 'production') {
         app.use(express.static(path.join(__dirname, '../client/build')));
