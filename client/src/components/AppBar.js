@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             ShiftAssist
           </Typography>
-          <Button variant="contained" color="primary" component={Link} to="/register" disableElevation>Volunteer Registration</Button>
+          {/* <Button variant="contained" color="primary" component={Link} to="/register" disableElevation>Volunteer Registration</Button> */}
           {Auth.loggedIn() ? (
           <Button variant="contained" color="primary" onClick={logout} disableElevation>Logout</Button>
           ) : (

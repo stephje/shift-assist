@@ -1,11 +1,8 @@
 import {
     Avatar,
-    Box,
     Button,
-    Checkbox,
     Container,
     CssBaseline,
-    FormControlLabel,
     Link,
     Grid,
     makeStyles,

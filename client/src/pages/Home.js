@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Typography, Grid } from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
 import StickyFooter from '../components/StickyFooter';
 import AppBar from '../components/AppBar';
 import logo from '../images/shiftassist.png';
@@ -11,7 +11,7 @@ export default function Home() {
         <Container>
         <Grid container justifyContent='center'>
         <Box>
-          <img src={logo} />
+          <img src={logo} alt="Workers" />
           </Box>
         </Grid>
         </Container>
@@ -19,3 +19,4 @@ export default function Home() {
     </Container>
   );
 }
+
