@@ -29,13 +29,19 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
-    console.log(idToken);
-    // window.location.assign('/');
+    const decodedToken = decode(idToken);
+    //render admin or user console depending on whether the user is an admin or not
+    if (decodedToken.data.admin === true) {
+      window.location.assign('/adminconsole');
+    } else {
+      window.location.assign('/userconsole');
+    }
   }
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.reload();
+    // window.location.reload();
+    window.location.assign('/');
   }
 }
 

@@ -83,6 +83,7 @@ export default function Login() {
   
   return (
     <Container component="main" maxWidth="xs">
+    <AppBar />
     <CssBaseline />
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
