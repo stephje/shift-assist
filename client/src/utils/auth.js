@@ -1,14 +1,18 @@
 import decode from 'jwt-decode';
 
 class AuthService {
-  // getProfile() {
-  //   return decode(this.getToken());
-  // }
 
   loggedIn() {
     const token = this.getToken();
     // If there is a token and it's not expired, return `true`
     return token && !this.isTokenExpired(token) ? true : false;
+  }
+
+  isAdmin() {
+    const token = this.getToken();
+    const decoded = decode(token);
+    // If the user is an admin, then return true
+    return token && decoded.data.admin ? true : false;
   }
 
   isTokenExpired(token) {
@@ -29,9 +33,9 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
-    const decodedToken = decode(idToken);
+    const decoded = decode(idToken);
     //render admin or user console depending on whether the user is an admin or not
-    if (decodedToken.data.admin === true) {
+    if (decoded.data.admin === true) {
       window.location.assign('/adminconsole');
     } else {
       window.location.assign('/userconsole');

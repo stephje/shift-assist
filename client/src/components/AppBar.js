@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    textDecoration: 'none',
+    color: 'inherit'
   },
 }));
 
@@ -33,13 +35,12 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          </IconButton> */}
+          <Typography variant="h6" className={classes.title} component={Link} to="/">
             ShiftAssist
           </Typography>
-          {/* <Button variant="contained" color="primary" component={Link} to="/register" disableElevation>Volunteer Registration</Button> */}
           {Auth.loggedIn() ? (
           <Button variant="contained" color="primary" onClick={logout} disableElevation>Logout</Button>
           ) : (
