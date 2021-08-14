@@ -11,6 +11,7 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     user: User
+    admin: Boolean
   }
   # "Volunteer" type defines queryable fields for volunteers.
   type Volunteer {

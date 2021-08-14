@@ -47,6 +47,39 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+
+  const [formState, setFormState] = useState({ email: '', password: ''});
+  const [login, { error, data }] = useMutation(LOGIN_USER);
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await login({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
+  };
   
   return (
     <Container component="main" maxWidth="xs">
@@ -58,8 +91,9 @@ export default function Login() {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <form className={classes.form} noValidate>
+      <form onSubmit={handleFormSubmit} className={classes.form} noValidate>
         <TextField
+          onChange={handleChange}
           variant="outlined"
           margin="normal"
           required
@@ -71,6 +105,7 @@ export default function Login() {
           autoFocus
         />
         <TextField
+          onChange={handleChange}
           variant="outlined"
           margin="normal"
           required
@@ -80,10 +115,6 @@ export default function Login() {
           type="password"
           id="password"
           autoComplete="current-password"
-        />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
         />
         <Button
           type="submit"
@@ -95,11 +126,6 @@ export default function Login() {
           Sign In
         </Button>
         <Grid container>
-          <Grid item xs>
-            <Link component={RouterLink} to="/" variant="body2">
-              Forgot password?
-            </Link>
-          </Grid>
           <Grid item>
             <Link component={RouterLink} to="/signup" variant="body2">
               {"Don't have an account? Sign Up"}

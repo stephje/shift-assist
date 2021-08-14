@@ -1,6 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { 
+  ApolloClient, 
+  ApolloProvider, 
+  InMemoryCache 
+} from '@apollo/client';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';

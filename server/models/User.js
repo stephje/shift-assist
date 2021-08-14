@@ -38,6 +38,11 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
+userSchema.methods.isAdmin = async function(admin) {
+  console.log(admin);
+  return (admin);
+}
+
 const User = model('User', userSchema);
 
 module.exports = User;
