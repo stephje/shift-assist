@@ -1,6 +1,17 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  type User {
+    _id: ID
+    username: String!
+    email: String!
+    password: String!
+    admin: Boolean!
+  }
+  type Auth {
+    token: ID!
+    user: User
+  }
   # "Volunteer" type defines queryable fields for volunteers.
   type Volunteer {
     _id: ID
@@ -97,6 +108,10 @@ const typeDefs = gql`
 
   # Queries that can be executed
   type Query {
+    users: [User]
+    user(username: String!): User
+    me: User
+
     getVolunteers: [Volunteer]!
     volunteer(volunteerId: ID!): Volunteer
     getRoles: [Role]!
@@ -105,6 +120,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    addUser(username: String!, email: String!, password: String!, admin: Boolean!): Auth
+    login(email: String!, password: String!): Auth
+
     addVolunteer(volunteer: VolunteerInput): Volunteer
     removeVolunteer(volunteerId: ID!): Volunteer
     updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
