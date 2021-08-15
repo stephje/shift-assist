@@ -9,12 +9,9 @@ import StickyFooter from '../components/StickyFooter';
 
 import {
     Avatar,
-    Box,
     Button,
-    Checkbox,
     Container,
     CssBaseline,
-    FormControlLabel,
     Grid,
     Link,
     makeStyles,

@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const Qualification = require('./Qualification')
 
 const roleSchema = new Schema({
   name: {
@@ -13,7 +14,7 @@ const roleSchema = new Schema({
   },
   qualifications: [{
     type: Schema.Types.ObjectId,
-    ref: "Qualification"
+    ref: Qualification
   }]
 });
 

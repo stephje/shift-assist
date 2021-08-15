@@ -15,11 +15,13 @@ async function getObjectIds(arrayOfElements, collection) {
 module.exports = {
     Query: {
         users: async () => {
-            return User.find();
+            return User.find().populate('nominatedRoles');
           },
+
         user: async (parent, { username }) => {
         return User.findOne({ username });
         },
+
         me: async (parent, args, context) => {
             if (context.user) {
               return User.findOne({ _id: context.user._id });
@@ -28,7 +30,7 @@ module.exports = {
           },
 
         getVolunteers: async () => {
-            return await Volunteer.find().sort({ lastName: 1 });
+            return await Volunteer.find().sort({ lastName: 1 }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
         },
 
         volunteer: async (_, { volunteerId }) => {
@@ -36,7 +38,7 @@ module.exports = {
         },
 
         getRoles: async () => {
-            return await Role.find().sort({ name: 1 });
+            return await Role.find().sort({ name: 1 }).populate('qualifications');
         },
 
         getQualifications: async () => {

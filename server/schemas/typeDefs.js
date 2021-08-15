@@ -115,6 +115,7 @@ const typeDefs = gql`
 
     getVolunteers: [Volunteer]!
     volunteer(volunteerId: ID!): Volunteer
+
     getRoles: [Role]!
     getQualifications: [Qualification]!
     getTimeslots: [Timeslot]!
