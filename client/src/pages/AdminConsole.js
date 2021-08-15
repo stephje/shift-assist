@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Button, Container, Box, Grid } from '@material-ui/core';
+import auth from '../utils/auth';
+import { Redirect, Link } from 'react-router-dom';
 import StickyFooter from '../components/StickyFooter';
 import AppBar from '../components/AppBar';
-import auth from '../utils/auth';
-import { Redirect } from 'react-router-dom';
+import VolunteerList from '../containers/VolunteerList'
 import { makeStyles } from '@material-ui/core/styles';
-import Auth from '../utils/auth';
-import { Link } from 'react-router-dom';
 import admin from '../images/admin.png';
-
 
 export default function AdminConsole() {
     
     const useStyles = makeStyles(theme => ({
-        flexColumn: {
+        flex: {
             margin: theme.spacing(2),
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
             alignItems: 'center',
         },
         mainButton: {
@@ -27,9 +26,35 @@ export default function AdminConsole() {
 
     const classes = useStyles();
 
+    const [volunteerVisibility, setVolunteerVisibility] = useState(false);
+    const [shiftVisibility, setShiftVisibility] = useState(false);
+    // const [showShiftText, setShiftText] = useState(false);
+    const VolunteerText = () => <div>You clicked the Volunteer button!</div>;
+    const ShiftText = () => <div>You clicked the Shift button!</div>;
+
         //TO DO: WRITE THIS FUNCTION
-        function toggleView() {
-            console.log("Toggle View")
+        function toggleView(event) { 
+            console.log(event.target.textContent)
+            switch (event.target.textContent) {
+                case 'Volunteer View':
+                    if(volunteerVisibility){
+                        setVolunteerVisibility(false);
+                    } else {
+                        setShiftVisibility(false);
+                        setVolunteerVisibility(true);
+                    }
+                    break;
+                case 'Shift View':
+                    if(shiftVisibility){
+                        setShiftVisibility(false);
+                    } else {
+                        setVolunteerVisibility(false);
+                        setShiftVisibility(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
     //Redirect to login page if not logged in
@@ -40,9 +65,9 @@ export default function AdminConsole() {
     return (
         <Container disableGutters maxWidth={false}>
             <AppBar />
-            {Auth.isAdmin() ? (
+            {auth.isAdmin() ? (
                       <Container>
-                      <Box className={classes.flexColumn}>
+                      <Box className={classes.flex}>
                           <Button
                               size='large'
                               variant='contained'
@@ -62,6 +87,11 @@ export default function AdminConsole() {
                                   Shift View
                               </Button>
                           </Box>
+                          <Grid>
+                          {volunteerVisibility ? <VolunteerText /> : null}
+                          {shiftVisibility ? <ShiftText /> : null}
+                          </Grid>
+                          
                       </Container>
           ) : (
             <Container >

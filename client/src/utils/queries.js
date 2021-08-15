@@ -25,27 +25,22 @@ export const QUERY_ME = gql`
 export const GET_VOLUNTEERS = gql`
     query getVolunteers {
         getVolunteers {
-            volunteer {
             _id
-            firstName, 
-            lastName, 
-            email,
-            mobile,
-            address,
-            suburb,
-            state,
-            postCode,
-            previousExperience,
-            medical,
-            emergencyContactName,
-            emergencyContactRelationship,
-            emergencyContactPhone,
-            commsPermissions,
-            termsAndConditions,
-            nominatedRoles,
-            qualificationsHeld,
-            availability 
-            }
+            firstName
+            lastName
+            email
+            mobile
+            address
+            suburb
+            state
+            medical
+            postcode
+            previousExperience
+            emergencyContactName
+            emergencyContactRelationship
+            emergencyContactPhone
+            commsPermissions
+            termsAndConditions 
         }
     }
 `;
