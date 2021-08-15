@@ -112,8 +112,6 @@ export default function VolunteerRegistration() {
         volunteerObject.nominatedRoles = rolesArray;
         volunteerObject.qualificationsHeld = qualificationsArray;
 
-        console.log('Volunteer Object', volunteerObject);
-
         try {
             await addVolunteer({ variables: { volunteer: volunteerObject } });
         } catch (error) {

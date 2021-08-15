@@ -32,15 +32,35 @@ export const GET_VOLUNTEERS = gql`
             mobile
             address
             suburb
-            state
-            medical
             postcode
+            state
             previousExperience
-            emergencyContactName
+            medical
             emergencyContactRelationship
+            emergencyContactName
             emergencyContactPhone
             commsPermissions
-            termsAndConditions 
+            termsAndConditions
+            nominatedRoles {
+                _id
+                name
+                label
+                qualifications {
+                    _id
+                    name
+                    label
+                }
+            }
+            qualificationsHeld {
+                _id
+                name
+                label
+            }
+            availability {
+                _id
+                name
+                label
+            }
         }
     }
 `;

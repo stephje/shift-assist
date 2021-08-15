@@ -14,7 +14,7 @@ export default function AdminConsole() {
         flex: {
             margin: theme.spacing(2),
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'space-evenly',
             flexWrap: 'wrap',
             alignItems: 'center',
         },
@@ -28,13 +28,9 @@ export default function AdminConsole() {
 
     const [volunteerVisibility, setVolunteerVisibility] = useState(false);
     const [shiftVisibility, setShiftVisibility] = useState(false);
-    // const [showShiftText, setShiftText] = useState(false);
-    const VolunteerText = () => <div>You clicked the Volunteer button!</div>;
     const ShiftText = () => <div>You clicked the Shift button!</div>;
 
-        //TO DO: WRITE THIS FUNCTION
         function toggleView(event) { 
-            console.log(event.target.textContent)
             switch (event.target.textContent) {
                 case 'Volunteer View':
                     if(volunteerVisibility){
@@ -88,7 +84,7 @@ export default function AdminConsole() {
                               </Button>
                           </Box>
                           <Grid>
-                          {volunteerVisibility ? <VolunteerText /> : null}
+                          {volunteerVisibility ? <VolunteerList /> : null}
                           {shiftVisibility ? <ShiftText /> : null}
                           </Grid>
                           
