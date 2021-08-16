@@ -88,6 +88,7 @@ function VolunteerList() {
         console.log("Not Found");
     } else if (data.getVolunteers) {
         const volunteers = data.getVolunteers;
+        console.log(volunteers);
 
         return (
             <Grid container className={classes.root} spacing={2}>

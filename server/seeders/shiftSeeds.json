@@ -1,0 +1,58 @@
+[
+    {
+        "name": "01-mb-a1",
+        "label": "Afternoon Main Bar Attendant 1",
+        "timeSlots": ["afternoon"],
+        "roles": ["barAttendant"]
+    },
+    {
+        "name": "01-mb-a2",
+        "label": "Afternoon Main Bar Attendant 2",
+        "timeslot": "afternoon",
+        "role": "barAttendant"
+    },
+    {
+        "name": "01-mb-m1",
+        "label": "Afternoon Main Bar Manager 1",
+        "timeslot": "afternoon",
+        "role": "barAttendant"
+    },
+    {
+        "name": "02-mb-a1",
+        "label": "Evening Main Bar Attendant 1",
+        "timeslot": "evening",
+        "role": "barAttendant"
+    },
+    {
+        "name": "02-mb-a2",
+        "label": "Evening Main Bar Attendant 2",
+        "timeslot": "evening",
+        "role": "barAttendant"
+    },
+    {
+        "name": "02-mb-m1",
+        "label": "Evening Main Bar Manager 1",
+        "timeslot": "evening",
+        "role": "barAttendant"
+    },
+    {
+        "name": "00-sb-d1",
+        "label": "Morning Shuttle Bus Driver 1",
+        "timeslot": "morning",
+        "role": "shuttleBusDriver"
+    },
+    {
+        "name": "01-sb-d1",
+        "label": "Afternoon Shuttle Bus Driver 1",
+        "timeslot": "afternoon",
+        "role": "shuttleBusDriver"
+    },
+    {
+        "name": "02-sb-d1",
+        "label": "Evening Shuttle Bus Driver 1",
+        "timeslot": "evening",
+        "role": "shuttleBusDriver"
+    }
+
+
+]

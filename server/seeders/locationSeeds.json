@@ -1,0 +1,26 @@
+[
+    {
+        "name": "mainBar",
+        "label": "Main Bar"
+    },
+    {
+        "name": "shuttleBusDepot",
+        "label": "Shuttle Bus Depot"
+    },
+    {
+        "name": "firstAidStation",
+        "label": "First Aid Station"
+    },
+    {
+        "name": "ticketOffice",
+        "label": "Ticket Office"
+    },
+    {
+        "name": "merchandiseShop",
+        "label": "Merchandise Shop"
+    },
+    {
+        "name": "volunteerOffice",
+        "label": "Volunteer Office"
+    }
+]

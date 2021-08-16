@@ -1,10 +1,12 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const db = require('../config/connection');
-const { Volunteer, Qualification, Role, Timeslot } = require ('../models');
+const { Volunteer, Qualification, Role, Timeslot, Location, Shift } = require ('../models');
 const qualificationSeeds = require('./qualificationSeeds.json');
 const timeslotSeeds = require('./timeslotSeeds.json');
 const roleSeeds = require('./roleSeeds.json');
+const locationSeeds = require('./locationSeeds.json')
+const shiftSeeds = require('./shiftSeeds.json')
 const getVolunteerSeeds = require('./getVolunteerSeeds');
 const getUnqualifiedVolunteerSeeds = require('./getUnqualifiedVolunteerSeeds');
 
@@ -28,6 +30,22 @@ db.once('open', async () => {
       // Delete existing timeslot documents and seed database from json file
       await Timeslot.deleteMany({});
       await Timeslot.create(timeslotSeeds);
+
+      // Delete existing location documents and seed database from json file
+      await Location.deleteMany({});
+      await Location.create(locationSeeds);
+
+      // Delete existing shift documents and seed database from json file
+      await Shift.deleteMany({});
+      for (const shift of shiftSeeds) {
+        if(shift.roles && shift.timeslots) {
+          shift.roles = await getObjectIds(shift.roles, Role, 'name');
+          shift.timeslots = await getObjectIds(shift.timeslots, Timeslot, 'name');
+          await Shift.create(shift);
+        } else if (!shift.timeslots) {
+          await Shift.create(shift);
+        }
+      }
 
       // Delete existing role documents and seed database from json file
       await Role.deleteMany({});

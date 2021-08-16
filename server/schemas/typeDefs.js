@@ -13,6 +13,7 @@ const typeDefs = gql`
     user: User
     admin: Boolean
   }
+  
   # "Volunteer" type defines queryable fields for volunteers.
   type Volunteer {
     _id: ID
@@ -83,26 +84,41 @@ const typeDefs = gql`
 
   type Shift {
     _id: ID
-    date: String!
-    time: String!
-    role: Role!
-    timeslot: Timeslot!
+    name: String!
+    label: String!
+    timeslots: [Timeslot]
+    roles: [Role]
   }
 
   input ShiftInput {
-    date: String!
-    time: String! 
-    role: RoleInput!
-    timeslot: TimeslotInput!
+    name: String
+    label: String
+    timeslots: [TimeslotInput]
+    roles: [RoleInput]
   }
 
   type Timeslot {
     _id: ID
     name: String!
     label: String!
+    startTime: String!
+    endTime: String!
   }
 
   input TimeslotInput {
+    name: String
+    label: String
+    startTime: String
+    endTime: String
+  }
+ 
+  type Location {
+    _id: ID
+    name: String!
+    label: String!
+  }
+
+  input LocationInput {
     name: String
     label: String
   }
@@ -113,12 +129,15 @@ const typeDefs = gql`
     user(username: String!): User
     me: User
 
-    getVolunteers: [Volunteer]!
     volunteer(volunteerId: ID!): Volunteer
+
+    getVolunteers: [Volunteer]!
+    getShifts: [Shift]!
 
     getRoles: [Role]!
     getQualifications: [Qualification]!
     getTimeslots: [Timeslot]!
+    getLocations: [Location]!
   }
 
   type Mutation {
@@ -128,10 +147,16 @@ const typeDefs = gql`
     addVolunteer(volunteer: VolunteerInput): Volunteer
     removeVolunteer(volunteerId: ID!): Volunteer
     updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
+
+    
+    removeShift(shiftId: ID!): Shift
+    updateShift(ShiftId: ID!, shift: ShiftInput): Shift
+
     addRole(role: RoleInput): Role
-    addQualification(qualification: QualificationInput): Qualification
     addShift(shift: ShiftInput): Shift
+    addQualification(qualification: QualificationInput): Qualification
     addTimeslot(timeslot: TimeslotInput): Timeslot
+    addLocation(location: LocationInput): Location
   }
 
 `;

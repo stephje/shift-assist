@@ -1,14 +1,20 @@
 [
     {
         "name": "morning",
-        "label": "07:00 - 12:00 (Morning)"
+        "label": "07:00 - 12:00 (Morning)",
+        "startTime": "07:00",
+        "endTime": "12:00"
     },
     {
         "name": "afternoon",
-        "label": "12:00 - 17:00 (Afternoon)"
+        "label": "12:00 - 17:00 (Afternoon)",
+        "startTime": "12:00",
+        "endTime": "17:00"
     },
     {
         "name": "evening",
-        "label": "17:00 - 00:00 (Evening)"
+        "label": "17:00 - 00:00 (Evening)",
+        "startTime": "17:00",
+        "endTime": "00:00"
     }
 ]
