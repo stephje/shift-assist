@@ -4,7 +4,8 @@ import auth from '../utils/auth';
 import { Redirect, Link } from 'react-router-dom';
 import StickyFooter from '../components/StickyFooter';
 import AppBar from '../components/AppBar';
-import VolunteerList from '../containers/VolunteerList'
+import VolunteerList from '../containers/VolunteerList';
+import ShiftList from '../containers/ShiftList';
 import { makeStyles } from '@material-ui/core/styles';
 import admin from '../images/admin.png';
 
@@ -28,7 +29,6 @@ export default function AdminConsole() {
 
     const [volunteerVisibility, setVolunteerVisibility] = useState(false);
     const [shiftVisibility, setShiftVisibility] = useState(false);
-    const ShiftText = () => <div>You clicked the Shift button!</div>;
 
         function toggleView(event) { 
             switch (event.target.textContent) {
@@ -85,7 +85,7 @@ export default function AdminConsole() {
                           </Box>
                           <Grid>
                           {volunteerVisibility ? <VolunteerList /> : null}
-                          {shiftVisibility ? <ShiftText /> : null}
+                          {shiftVisibility ? <ShiftList /> : null}
                           </Grid>
                           
                       </Container>

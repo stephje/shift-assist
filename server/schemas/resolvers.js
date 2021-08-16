@@ -1,4 +1,4 @@
-const { User, Volunteer, Role, Qualification, Timeslot } = require('../models');
+const { User, Volunteer, Role, Qualification, Timeslot, Shift } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -44,8 +44,15 @@ module.exports = {
         getQualifications: async () => {
             return await Qualification.find().sort({ name: 1 });
         },
+
         getTimeslots: async () => {
             return await Timeslot.find().sort({label: 1});
+        },
+
+        getShifts: async () => {
+            const test = await Shift.find().sort({ name: 1 }).populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}});
+            console.log(test);
+            return await Shift.find().sort({ name: 1 }).populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}});
         },
     },
 
@@ -53,7 +60,6 @@ module.exports = {
         addUser: async (parent, { username, email, password, admin }) => {
             const user = await User.create({ username, email, password, admin });
             const token = signToken(user);
-            console.log(user);
             return { token, user };
           },
         login: async (parent, { email, password }) => {
