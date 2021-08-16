@@ -47,3 +47,13 @@ mutation addVolunteer($volunteer: VolunteerInput) {
   }
 }
 `;
+
+export const REMOVE_SHIFT = gql`
+mutation removeShift($removeShiftShiftId: ID!) {
+  removeShift(shiftId: $removeShiftShiftId) {
+    _id
+    name
+    label
+  }
+}
+`;

@@ -107,5 +107,8 @@ module.exports = {
         addQualification: async (_, {name}) => {
             return Qualification.create({ name });
         },
+        removeShift: async (_, { shiftId }) => {
+            return await Shift.findByIdAndDelete(shiftId);
+        },
     },
 };

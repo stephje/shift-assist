@@ -17,8 +17,9 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_SHIFTS } from '../utils/queries';
+import { REMOVE_SHIFT } from '../utils/mutations'
 import { titleCase } from "title-case";
 import WorkIcon from '@material-ui/icons/Work';
 
@@ -40,13 +41,6 @@ function getValuesbyName(array) {
     return (newArray);
 }
 
-function deleteShift() {
-    console.log("DELETE")
-}
-
-function assignVolunteer() {
-    console.log("Assign")
-}
 
 function ShiftList() {
 
@@ -74,8 +68,35 @@ function ShiftList() {
 
     const classes = useStyles();
 
-
     const { loading, error, data } = useQuery(GET_SHIFTS);
+
+    const [removeShift, { shiftData }] = useMutation(REMOVE_SHIFT, {
+        refetchQueries: [
+            GET_SHIFTS,
+            'getShifts'
+          ],
+    });
+
+    function deleteShift(event) {
+        const shiftID = event.currentTarget.id
+        console.log(shiftID)
+        console.log("Delete")
+        
+        removeShift({
+            variables: { removeShiftShiftId: shiftID },
+          });
+
+        
+    }
+
+
+    function assignVolunteer(event) {
+        var shiftID = event.currentTarget.id
+        console.log(shiftID)
+        console.log("Assign")
+    }
+    
+
     if (loading) {
         return (
             <Box display='flex' justifyContent='center' p={10}>
@@ -103,7 +124,7 @@ function ShiftList() {
                         const rolesArray = getValuesbyLabel(roleIds);
                         const timeslotArray = getValuesbyName(timeslotIds);
 
-                        console.log(rolesArray)
+                        // console.log(rolesArray)
 
                         return (
                             <Accordion key={shift._id}>
@@ -119,14 +140,14 @@ function ShiftList() {
                                                 <WorkIcon />
                                             </Avatar>
                                         </Box>
-                                        <Box width={100}>
+                                        <Box width={120}>
                                             <Typography >{shift.label}</Typography>
                                         </Box>
                                         <Box ml={5} my={1}>
-                                            <Button size='small' variant='contained' onClick={assignVolunteer}>Assign a Volunteer</Button>
+                                            <Button id={shift._id} size='small' variant='contained' onClick={assignVolunteer}>Assign a Volunteer</Button>
                                         </Box>
                                         <Box ml={5}>
-                                            <Button size='small' variant='contained' onClick={deleteShift}>Delete</Button>
+                                            <Button id={shift._id} size='small' variant='contained' onClick={deleteShift}>Delete</Button>
                                         </Box>
                                     </Box>
  
