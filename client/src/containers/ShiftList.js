@@ -6,14 +6,11 @@ import {
     Grid,
     List,
     ListItem,
-    Paper,
     Accordion,
     AccordionSummary,
     AccordionDetails,
     Typography,
-    ListItemAvatar,
     Avatar,
-    ListItemText
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,6 +20,7 @@ import { REMOVE_SHIFT } from '../utils/mutations'
 import { titleCase } from "title-case";
 import WorkIcon from '@material-ui/icons/Work';
 
+// Helper function to get the label property from each object in an array of objects and add to new array
 function getValuesbyLabel(array) {
     let newArray = [];
     for (const element of array) {
@@ -32,6 +30,8 @@ function getValuesbyLabel(array) {
     return (newArray);
 }
 
+// Helper function to get the name property from each object in an array of objects and add to new array
+// Would like this and the label function to be one function, but it didn't like "name" being passed in as an argument 
 function getValuesbyName(array) {
     let newArray = [];
     for (const element of array) {
@@ -44,6 +44,7 @@ function getValuesbyName(array) {
 
 function ShiftList() {
 
+    // Styling for ShiftList
     const useStyles = makeStyles((theme) => ({
         root: {
             width: '100%',
@@ -65,11 +66,14 @@ function ShiftList() {
             fontWeight: 600,
         }
     }));
-
+    
+    // Use styling defined above
     const classes = useStyles();
 
+    // Query DB for all shifts
     const { loading, error, data } = useQuery(GET_SHIFTS);
 
+    // Mutation to remove a shift, then refetch queries to re-render list
     const [removeShift, { shiftData }] = useMutation(REMOVE_SHIFT, {
         refetchQueries: [
             GET_SHIFTS,
@@ -79,8 +83,6 @@ function ShiftList() {
 
     function deleteShift(event) {
         const shiftID = event.currentTarget.id
-        console.log(shiftID)
-        console.log("Delete")
         
         removeShift({
             variables: { removeShiftShiftId: shiftID },
@@ -89,10 +91,9 @@ function ShiftList() {
         
     }
 
-
+    // Function to assign volunteer - will be completed in next slice
     function assignVolunteer(event) {
         var shiftID = event.currentTarget.id
-        console.log(shiftID)
         console.log("Assign")
     }
     
@@ -124,8 +125,7 @@ function ShiftList() {
                         const rolesArray = getValuesbyLabel(roleIds);
                         const timeslotArray = getValuesbyName(timeslotIds);
 
-                        // console.log(rolesArray)
-
+                        // Map the shift into the accordion component
                         return (
                             <Accordion key={shift._id}>
 

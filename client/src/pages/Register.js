@@ -6,7 +6,7 @@ import StickyFooter from '../components/StickyFooter';
 import AppBar from '../components/AppBar';
 import VolunteerRegistration from '../components/VolunteerRegistration'
 
-
+//Registration page, renders the volunteer registration form component
 export default function Register() {
   return (
     <Container disableGutters maxWidth={false}>

@@ -8,6 +8,7 @@ import { titleCase } from "title-case";
 
 function QualificationsChecklist() {
 
+    // Query DB for list of qualifications
     const { loading, error, data } = useQuery(GET_QUALIFICATIONS);
     if (loading) {
         return "Loading";
@@ -18,7 +19,8 @@ function QualificationsChecklist() {
         console.log("Not Found");
     } else if (data.getQualifications) {
         const qualifications = data.getQualifications;
-        
+        // Return grid component
+        // Map qualifications data onto properties custom checkbox component
         return (
             <Grid item xs={12}>
                 {qualifications.map((qualification) => (

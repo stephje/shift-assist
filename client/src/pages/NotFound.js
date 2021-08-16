@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
+//This just renders a message indicating the path is not found 
 function NotFound() {
   let location = useLocation();
   return (

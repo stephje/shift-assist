@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 export default function UserConsole() {
 
+    //Define styles
     const useStyles = makeStyles(theme => ({
         flexColumn: {
             margin: theme.spacing(2),
@@ -23,9 +24,10 @@ export default function UserConsole() {
         }
     }));
 
+    //Use styles
     const classes = useStyles();
 
-    //TO DO: WRITE THIS FUNCTION
+    //This will eventually render all shifts assigned to a user. To be delivered in next slice
     function displayShifts() {
         console.log("Shifts will be displayed")
     }

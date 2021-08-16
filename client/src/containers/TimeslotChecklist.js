@@ -8,6 +8,7 @@ import { titleCase } from "title-case";
 
 function TimeslotChecklist() {
 
+    // Query DB for all timeslots
     const { loading, error, data } = useQuery(GET_TIMESLOTS);
     if (loading) {
         return "Loading";
@@ -19,6 +20,7 @@ function TimeslotChecklist() {
     } else if (data.getTimeslots) {
         const timeslots = data.getTimeslots;
         
+        // Map timeslot data into custom checkbox component properties
         return (
             <Grid item xs={12}>
                 {timeslots.map((timeslot) => (

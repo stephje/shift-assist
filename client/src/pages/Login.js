@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
         marginTop: theme.spacing(1),
     },
     submit: {
@@ -47,7 +47,7 @@ export default function Login() {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [login, { error, data }] = useMutation(LOGIN_USER);
 
-    // update state based on form input changes
+    // Update state based on form input changes
     const handleChange = event => {
         const { name, value } = event.target;
 
@@ -57,7 +57,7 @@ export default function Login() {
         });
     };
 
-    // submit form
+    // Submit form
     const handleFormSubmit = async event => {
         event.preventDefault();
         try {
@@ -68,9 +68,10 @@ export default function Login() {
             Auth.login(data.login.token);
         } catch (e) {
             console.error(e);
+            alert(e);
         }
 
-        // clear form values
+        // Clear form values
         setFormState({
             email: '',
             password: '',

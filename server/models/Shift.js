@@ -8,7 +8,7 @@ const shiftSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    // unique: true,
+    unique: true,
   },
   label: {
     type: String,

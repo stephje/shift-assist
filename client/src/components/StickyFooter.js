@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
+// From a free Material-UI template. This entire component is called StickyFooter, but it's not really a sticky footer per se- it just renders the footer at least 100vh from wherever it's added in
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">

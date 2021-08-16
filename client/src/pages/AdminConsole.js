@@ -11,6 +11,7 @@ import admin from '../images/admin.png';
 
 export default function AdminConsole() {
     
+    //Set styles for page
     const useStyles = makeStyles(theme => ({
         flex: {
             margin: theme.spacing(2),
@@ -25,11 +26,16 @@ export default function AdminConsole() {
         }
     }));
 
+    //Use styles
     const classes = useStyles();
 
+    //Set initial state to false
     const [volunteerVisibility, setVolunteerVisibility] = useState(false);
     const [shiftVisibility, setShiftVisibility] = useState(false);
 
+    //Toggle volunteer and shift view on/off
+    //If on when clicked, toggle off
+    //If off when clicked, toggle on and hide other component (i.e. turning on Shift View turns off Volunteer View)
         function toggleView(event) { 
             switch (event.target.textContent) {
                 case 'Volunteer View':

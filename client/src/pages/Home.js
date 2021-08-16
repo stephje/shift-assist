@@ -8,6 +8,7 @@ import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
+    //Set styles
     const useStyles = makeStyles(theme => ({
         startButton: {
             width: '300px',
@@ -16,8 +17,12 @@ export default function Home() {
         },
     }));
 
+    //Use styles
     const classes = useStyles();
 
+    //Render button that links to Admin Console if logged in as an admin
+    //Render button that links to User Console if logged in as a non-admin user
+    //Render button that links to login page if not logged in yet
     function renderStartButton() {
         if (Auth.loggedIn() && Auth.isAdmin()) {
             return (

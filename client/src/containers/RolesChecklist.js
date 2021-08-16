@@ -8,6 +8,7 @@ import { titleCase } from "title-case";
 
 function RolesChecklist() {
 
+    // Query DB for all roles
     const { loading, error, data } = useQuery(GET_ROLES);
     if (loading) {
         return "Loading";
@@ -19,6 +20,7 @@ function RolesChecklist() {
     } else if (data.getRoles) {
         const roles = data.getRoles;
         
+        // Map data from query onto custom checkbox component
         return (
             <Grid item xs={12}>
                 {roles.map((role) => (

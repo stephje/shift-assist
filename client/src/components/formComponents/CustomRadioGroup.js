@@ -8,6 +8,8 @@ import {
 } from '@material-ui/core';
 import { useField, useFormikContext } from 'formik';
 
+// This is a custom component created for use in forms
+// Set up to use Formik context and also has styling set to match app
 const CustomRadioGroup = ({
     name,
     legend,

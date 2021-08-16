@@ -39,7 +39,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 userSchema.methods.isAdmin = async function(admin) {
-  console.log(admin);
   return (admin);
 }
 

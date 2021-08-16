@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const secret = 'hollowechoes';
+// const secret = 'hollowechoes';
+const secret = process.env.SECRET
+
+// How long token will persist for before it expires
 const expiration = '4h';
 
 module.exports = {

@@ -13,6 +13,7 @@ import TimeslotChecklist from '../containers/TimeslotChecklist';
 import { ADD_VOLUNTEER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 
+// Set some styling for the spacing of the form wrapper div
 const useStyles = makeStyles(theme => ({
     formWrapper: {
         marginTop: theme.spacing(5),
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+// Set initial form state
 const INITIAL_FORM_STATE = {
     firstName: '',
     lastName: '',
@@ -38,6 +40,7 @@ const INITIAL_FORM_STATE = {
     termsAndConditions: false,
 };
 
+// Form validation using yup npm package
 const FORM_VALIDATION = yup.object().shape({
     firstName: yup.string().required('Required'),
     lastName: yup.string().required('Required'),
@@ -69,8 +72,10 @@ const FORM_VALIDATION = yup.object().shape({
 });
 
 export default function VolunteerRegistration() {
+    // Use styles defined above
     const classes = useStyles();
 
+    // Mutation to add new volunteer
     const [addVolunteer] = useMutation(ADD_VOLUNTEER);
 
     async function onSubmit(values) {
@@ -79,6 +84,7 @@ export default function VolunteerRegistration() {
         let rolesArray = [];
         let qualificationsArray = [];
 
+        // Currently mapped in manually, will be replaced with DB query in next slice
         const timeslots = ['morning', 'afternoon', 'evening'];
 
         const qualifications = ['rsa', 'mlp', 'sfa', 'ptd'];
@@ -93,6 +99,7 @@ export default function VolunteerRegistration() {
             'wasteCrewMember',
         ];
 
+        // Reorganise form data into the correct format for the addVolunteer query
         for (const property in values) {
             if (timeslots.includes(property) && values[property] === true) {
                 availabilityArray.push(property);
@@ -113,7 +120,9 @@ export default function VolunteerRegistration() {
         volunteerObject.qualificationsHeld = qualificationsArray;
 
         try {
+            // Add volunteer passing in volunteerObject which is the organised data from the form
             await addVolunteer({ variables: { volunteer: volunteerObject } });
+            alert("Form Submitted Successfully!");
         } catch (error) {
             console.error(error);
         }

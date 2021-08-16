@@ -1,19 +1,15 @@
 import React from 'react';
 import {
     Box,
-    Button,
     CircularProgress,
     Grid,
     List,
     ListItem,
-    Paper,
     Accordion,
     AccordionSummary,
     AccordionDetails,
     Typography,
-    ListItemAvatar,
     Avatar,
-    ListItemText
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,6 +18,7 @@ import { GET_VOLUNTEERS } from '../utils/queries';
 import { titleCase } from "title-case";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
+// Helper function to get the label property from each object in an array of objects and add to new array
 function getValuesbyLabel(array) {
     let newArray = [];
     for (const element of array) {
@@ -31,6 +28,8 @@ function getValuesbyLabel(array) {
     return (newArray);
 }
 
+// Helper function to get the name property from each object in an array of objects and add to new array
+// Would like this and the label function to be one function, but it didn't like "name" being passed in as an argument 
 function getValuesbyName(array) {
     let newArray = [];
     for (const element of array) {
@@ -40,16 +39,18 @@ function getValuesbyName(array) {
     return (newArray);
 }
 
+// This is just to convert a value to "Yes" or "No" rather than "true"/"false"
 function getYesNo(b) {
     if (b === 'true') {
-        return "Yes"
+        return 'Yes'
     } else if (b === 'false') {
-        return "No"
+        return 'No'
     }
 }
 
 function VolunteerList() {
 
+    // Styling for volutneer list
     const useStyles = makeStyles((theme) => ({
         root: {
             width: '100%',
@@ -72,8 +73,10 @@ function VolunteerList() {
         }
     }));
 
+    // Use styling defined above
     const classes = useStyles();
 
+    // Query to get all volunteers from DB
     const { loading, error, data } = useQuery(GET_VOLUNTEERS);
     if (loading) {
         return (
@@ -89,10 +92,10 @@ function VolunteerList() {
     } else if (data.getVolunteers) {
         const volunteers = data.getVolunteers;
 
+        // Map the volunteer into the accordion component
         return (
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12}>
-                    {/* <Button>SORT BY</Button> */}
 
                     {volunteers.map((volunteer) => {
 

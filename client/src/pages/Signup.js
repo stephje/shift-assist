@@ -21,7 +21,7 @@ import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-//Styling from Material-UI template
+// Styling from Material-UI template
 const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
         marginTop: theme.spacing(3),
     },
     submit: {
@@ -43,8 +43,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Signup() {
+    // Use styles defined above
     const classes = useStyles();
 
+    // Set initial form state
     const [formState, setFormState] = useState({
         username: '',
         email: '',
@@ -53,6 +55,7 @@ export default function Signup() {
     });
     const [addUser, { error, data }] = useMutation(ADD_USER);
 
+    // Update form state on change
     const handleChange = event => {
         const { name, value } = event.target;
 
@@ -62,6 +65,7 @@ export default function Signup() {
         });
     };
 
+    // addUser query when form is submitted
     const handleFormSubmit = async event => {
         event.preventDefault();
 
@@ -76,7 +80,7 @@ export default function Signup() {
         }
     };
 
-    //Components and design based on Material-UI template
+    // Components and design based on Material-UI template
     return (
         <Container disableGutters maxWidth={false}>
             <AppBar />

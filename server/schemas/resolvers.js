@@ -50,8 +50,6 @@ module.exports = {
         },
 
         getShifts: async () => {
-            const test = await Shift.find().sort({ name: 1 }).populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}});
-            console.log(test);
             return await Shift.find().sort({ name: 1 }).populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}});
         },
     },
