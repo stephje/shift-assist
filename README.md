@@ -16,7 +16,7 @@
 
 ## Project Outline
 
-ShiftAssist is a web application that significantly reduces the time and effort required to construct a volunteer roster. 
+ShiftAssist is a tool designed to significantly reduce the time and effort required to construct a volunteer roster for large-scale events like music festivals. 
 - Accepts Volunteer registrations
 - Displays Volunteer and shift data
 - Used to assign Volunteers to shifts
