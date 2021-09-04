@@ -45,7 +45,7 @@ export default function Login() {
     const classes = useStyles();
 
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [login, { error, data }] = useMutation(LOGIN_USER);
+    const [login] = useMutation(LOGIN_USER);
 
     // Update state based on form input changes
     const handleChange = event => {

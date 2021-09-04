@@ -74,7 +74,7 @@ function ShiftList() {
     const { loading, error, data } = useQuery(GET_SHIFTS);
 
     // Mutation to remove a shift, then refetch queries to re-render list
-    const [removeShift, { shiftData }] = useMutation(REMOVE_SHIFT, {
+    const [removeShift] = useMutation(REMOVE_SHIFT, {
         refetchQueries: [
             GET_SHIFTS,
             'getShifts'
@@ -93,7 +93,7 @@ function ShiftList() {
 
     // Function to assign volunteer - will be completed in next slice
     function assignVolunteer(event) {
-        var shiftID = event.currentTarget.id
+        // var shiftID = event.currentTarget.id
         console.log("Assign")
     }
     

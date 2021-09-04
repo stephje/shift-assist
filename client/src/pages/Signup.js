@@ -53,7 +53,7 @@ export default function Signup() {
         password: '',
         admin: false,
     });
-    const [addUser, { error, data }] = useMutation(ADD_USER);
+    const [addUser] = useMutation(ADD_USER);
 
     // Update form state on change
     const handleChange = event => {
