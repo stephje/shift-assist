@@ -93,8 +93,8 @@ const typeDefs = gql`
   input ShiftInput {
     name: String
     label: String
-    timeslots: [TimeslotInput]
-    roles: [RoleInput]
+    timeslots: [String]
+    roles: [String]
   }
 
   type Timeslot {
@@ -133,7 +133,6 @@ const typeDefs = gql`
 
     getVolunteers: [Volunteer]!
     getShifts: [Shift]!
-
     getRoles: [Role]!
     getQualifications: [Qualification]!
     getTimeslots: [Timeslot]!
@@ -148,12 +147,11 @@ const typeDefs = gql`
     removeVolunteer(volunteerId: ID!): Volunteer
     updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
 
-    
+    addShift(shift: ShiftInput): Shift
     removeShift(shiftId: ID!): Shift
     updateShift(ShiftId: ID!, shift: ShiftInput): Shift
 
     addRole(role: RoleInput): Role
-    addShift(shift: ShiftInput): Shift
     addQualification(qualification: QualificationInput): Qualification
     addTimeslot(timeslot: TimeslotInput): Timeslot
     addLocation(location: LocationInput): Location

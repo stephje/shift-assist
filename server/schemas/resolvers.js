@@ -50,8 +50,8 @@ module.exports = {
         },
 
         getShifts: async () => {
-            return await Shift.find().sort({ name: 1 }).populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}});
-        },
+            return await Shift.find().populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}})
+        }
     },
 
     Mutation: {
@@ -80,11 +80,8 @@ module.exports = {
         addVolunteer: async (_, {volunteer}) => {
             //Replace name values in arrays with ObjectIds and create new volunteer document
             volunteer.qualificationsHeld = await getObjectIds(volunteer.qualificationsHeld, Qualification);
-
             volunteer.availability = await getObjectIds(volunteer.availability, Timeslot);
-
             volunteer.nominatedRoles = await getObjectIds(volunteer.nominatedRoles, Role);
-
             return Volunteer.create(volunteer);
         },
         removeVolunteer: async (_, { volunteerId }) => {
@@ -104,6 +101,11 @@ module.exports = {
         },
         addQualification: async (_, {name}) => {
             return Qualification.create({ name });
+        },
+        addShift: async (_, {shift}) => {
+            shift.timeslots = await getObjectIds(shift.timeslots, Timeslot);
+            shift.roles = await getObjectIds(shift.roles, Role);
+            return Shift.create(shift)
         },
         removeShift: async (_, { shiftId }) => {
             return await Shift.findByIdAndDelete(shiftId);

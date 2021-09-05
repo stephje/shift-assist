@@ -3,7 +3,7 @@ import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/client';
 import { GET_VOLUNTEERS } from '../utils/queries';
-import VolunteerEntry from '../components/volunteerListComponents/VolunteerEntry';
+import VolunteerEntry from '../components/adminComponents/VolunteerEntry';
 
 function VolunteerList() {
     // Styling for volunteer list

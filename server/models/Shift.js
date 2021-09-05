@@ -22,8 +22,7 @@ const shiftSchema = new Schema({
   roles: [{
     type: Schema.Types.ObjectId,
     ref: Role
-}]
-
+  }],
 });
 
 const Shift = model('shift', shiftSchema);
