@@ -191,13 +191,52 @@ export const GET_VOLUNTEER_REGISTRATION = gql`
   }
 `;
 
-export const GET_ASSIGNED_SHIFTS = gql`
-  query getAssignedShifts($volunteerId: ID!) {
-    getAssignedShifts(volunteerId: $volunteerId) {
+export const GET_CURRENT_VOLUNTEER_DATA = gql`
+  query getCurrentVolunteerData {
+  getCurrentVolunteerData {
+    _id
+    userId
+    firstName
+    lastName
+    email
+    mobile
+    address
+    suburb
+    state
+    postcode
+    previousExperience
+    medical
+    emergencyContactName
+    emergencyContactRelationship
+    emergencyContactPhone
+    commsPermissions
+    termsAndConditions
+    nominatedRoles {
       _id
       name
       label
-      location
+      qualifications {
+        _id
+        name
+        label
+      }
+    }
+    qualificationsHeld {
+      _id
+      name
+      label
+    }
+    availability {
+      _id
+      name
+      label
+      startTime
+      endTime
+    }
+    assignedShifts {
+      _id
+      name
+      label
       timeslot {
         _id
         name
@@ -215,8 +254,10 @@ export const GET_ASSIGNED_SHIFTS = gql`
           label
         }
       }
+      location
     }
   }
+}
 `;
 
 export const GET_VOLUNTEER_ID_BY_USER_ID = gql`

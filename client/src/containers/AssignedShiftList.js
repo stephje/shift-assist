@@ -12,7 +12,7 @@ import {
     TableRow, 
     Paper 
 } from '@material-ui/core';
-import { GET_ASSIGNED_SHIFTS, QUERY_ME } from '../utils/queries';
+import { GET_CURRENT_VOLUNTEER_DATA } from '../utils/queries';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -41,18 +41,7 @@ const useStyles = makeStyles({
 export default function AssignedShiftList() {
   const classes = useStyles();
 
-//   const { data: userData } = useQuery(QUERY_ME);
-
-//   if (userData) {
-//       const volunteerId = userData.me._id;
-//       console.log(volunteerId);
-//   }
-
-  const volunteerId = '6135b6d81d7de63f7baaecb5'
-
-  const {error, loading, data} = useQuery(GET_ASSIGNED_SHIFTS, {
-    variables: {volunteerId}
-    });
+  const {error, loading, data} = useQuery(GET_CURRENT_VOLUNTEER_DATA);
 
   if (error) {
       console.error(error.message)
@@ -67,7 +56,8 @@ export default function AssignedShiftList() {
   }
 
   if (data) {
-      const shiftArray = data.getAssignedShifts;
+      const volunteerData = data.getCurrentVolunteerData;
+      const shiftArray = volunteerData.assignedShifts
     return (
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">

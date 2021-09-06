@@ -30,23 +30,32 @@ module.exports = {
 
         me: async (parent, args, context) => {
             if (context.user) {
-              return User.findOne({ _id: context.user._id });
+              return await User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError('Please make sure you have logged in!');
-          },
-
-        getVolunteers: async () => {
-            return await Volunteer.find().sort({ lastName: 1 }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
         },
 
-        getAssignedShifts: async (_, { volunteerId }) => {
-            const volunteerData = await Volunteer.findById({ _id: volunteerId }).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}}).populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}}).populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}});
-            console.log(volunteerData.assignedShifts)
-            return volunteerData.assignedShifts;
-        },
+        getCurrentVolunteerData: async (parent, args, context) => {
+            
+            if (context.user) {
+                const currentUserData = await User.findOne({ _id: context.user._id });
+                const currentUserId = currentUserData._id
+                console.log("Current User ID", currentUserId)
 
-        getVolunteerRegistration: async (_, { userId }) => {
-            return await Volunteer.find({ userId: userId }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}}).populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}}).populate({path: 'assignedShifts', populate:{path: 'role', model: Role}}).populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}});
+                const volunteerData = await Volunteer.findOne({ userId: currentUserId })
+                .populate('nominatedRoles')
+                .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+                .populate('qualificationsHeld')
+                .populate('availability')
+                .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+                .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
+
+                console.log(volunteerData)
+                return volunteerData;
+              }
+              throw new AuthenticationError('Please make sure you have logged in!');
         },
 
         getVolunteerIdByUserId: async (parent, args, context) => {
@@ -58,6 +67,26 @@ module.exports = {
                 console.log(userData);
             }
             throw new AuthenticationError('Please make sure you have logged in!');
+        },
+
+        getVolunteers: async () => {
+            return await Volunteer.find().sort({ lastName: 1 })
+            .populate('nominatedRoles')
+            .populate('qualificationsHeld')
+            .populate('availability')
+            .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+        },
+
+        getVolunteerRegistration: async (_, { userId }) => {
+            return await Volunteer.find({ userId: userId })
+            .populate('nominatedRoles')
+            .populate('qualificationsHeld')
+            .populate('availability')
+            .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+            .populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}})
+            .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}});
         },
 
         volunteer: async (_, { volunteerId }) => {
@@ -128,14 +157,22 @@ module.exports = {
                 volunteerId,
                 { "$addToSet": { "assignedShifts": shiftId } },
                 { new: true }
-            ).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}})
+            )
+            .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+            .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
         },
         removeVolunteerFromShift: async (_, {shiftId, volunteerId}) => {
             return await Volunteer.findByIdAndUpdate(
                 volunteerId,
                 { "$pull": { "assignedShifts": shiftId } },
                 { new: true }
-            ).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}})
+            )
+            .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+            .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
         },
         addRole: async (_, { name, label, qualifications }) => {
             return Role.create({ name, label, qualifications });
