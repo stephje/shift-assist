@@ -17,6 +17,7 @@ const typeDefs = gql`
   # "Volunteer" type defines queryable fields for volunteers.
   type Volunteer {
     _id: ID
+    userId: ID
     firstName: String!
     lastName: String!
     email: String!
@@ -39,6 +40,7 @@ const typeDefs = gql`
   }
 
   input VolunteerInput {
+    userId: String
     firstName: String!
     lastName: String!
     email: String!
@@ -132,14 +134,16 @@ const typeDefs = gql`
     me: User
 
     volunteer(volunteerId: ID!): Volunteer
-
     getVolunteers: [Volunteer]!
+    getVolunteerRegistration(userId: ID!): [Volunteer]!
+    getAssignedShifts(volunteerId: ID!): [Shift]!
+
     getShifts: [Shift]!
     getRoles: [Role]!
     getQualifications: [Qualification]!
     getTimeslots: [Timeslot]!
     getLocations: [Location]!
-    getAssignedShifts(volunteerId: ID!): [Shift]!
+    
   }
 
   type Mutation {

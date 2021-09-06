@@ -38,6 +38,10 @@ module.exports = {
             return volunteerData.assignedShifts;
         },
 
+        getVolunteerRegistration: async (_, { userId }) => {
+            return await Volunteer.find({ userId: userId }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}}).populate({path: 'assignedShifts', populate:{path: 'timeslots', model: Timeslot}}).populate({path: 'assignedShifts', populate:{path: 'roles', model: Role}}).populate({path: 'assignedShifts', populate:{path: 'roles', populate: {path: 'qualifications', model: Qualification}}});
+        },
+
         volunteer: async (_, { volunteerId }) => {
             return await Volunteer.findById({ _id: volunteerId });
         },

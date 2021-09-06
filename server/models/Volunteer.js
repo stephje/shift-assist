@@ -3,8 +3,13 @@ const Role = require('./Role')
 const Qualification = require('./Qualification')
 const Timeslot = require('./Timeslot')
 const Shift = require('./Shift')
+const User = require('./User')
 
 const volunteerSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: User
+  },
   firstName: {
     type: String,
     required: true,
