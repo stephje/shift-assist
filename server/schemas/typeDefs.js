@@ -35,6 +35,7 @@ const typeDefs = gql`
     nominatedRoles: [Role]
     qualificationsHeld: [Qualification]
     availability: [Timeslot]
+    assignedShifts: [Shift]
   }
 
   input VolunteerInput {
@@ -56,6 +57,7 @@ const typeDefs = gql`
     nominatedRoles: [String]
     qualificationsHeld: [String]
     availability: [String]
+    assignedShifts: [String]
   }
 
   type Qualification {
@@ -137,6 +139,7 @@ const typeDefs = gql`
     getQualifications: [Qualification]!
     getTimeslots: [Timeslot]!
     getLocations: [Location]!
+    getAssignedShifts(volunteerId: ID!): [Shift]!
   }
 
   type Mutation {
@@ -149,7 +152,10 @@ const typeDefs = gql`
 
     addShift(shift: ShiftInput): Shift
     removeShift(shiftId: ID!): Shift
-    updateShift(ShiftId: ID!, shift: ShiftInput): Shift
+    updateShift(shiftId: ID!, shift: ShiftInput): Shift
+    
+    assignVolunteerToShift(shiftId: ID!, volunteerId: ID!): Volunteer
+    removeVolunteerFromShift(shiftId: ID!, volunteerId: ID!): Volunteer
 
     addRole(role: RoleInput): Role
     addQualification(qualification: QualificationInput): Qualification

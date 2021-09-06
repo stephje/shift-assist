@@ -41,6 +41,7 @@ function getVolunteerSeeds() {
         volunteer.nominatedRoles = faker.random.arrayElements(roles);
         volunteer.qualificationsHeld = faker.random.arrayElements(qualifications);
         volunteer.availability = faker.random.arrayElements(timeslots);
+        volunteer.assignedShifts = [];
 
         volunteerArray.push(volunteer);
     }

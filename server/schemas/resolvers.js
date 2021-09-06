@@ -33,6 +33,11 @@ module.exports = {
             return await Volunteer.find().sort({ lastName: 1 }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
         },
 
+        getAssignedShifts: async (_, { volunteerId }) => {
+            const volunteerData = await Volunteer.findById({ _id: volunteerId }).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}});
+            return volunteerData.assignedShifts;
+        },
+
         volunteer: async (_, { volunteerId }) => {
             return await Volunteer.findById({ _id: volunteerId });
         },
@@ -95,6 +100,20 @@ module.exports = {
                 { firstName, lastName, email },
                 { new: true }
             );
+        },
+        assignVolunteerToShift: async (_, {shiftId, volunteerId}) => {
+            return await Volunteer.findByIdAndUpdate(
+                volunteerId,
+                { "$addToSet": { "assignedShifts": shiftId } },
+                { new: true }
+            ).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}})
+        },
+        removeVolunteerFromShift: async (_, {shiftId, volunteerId}) => {
+            return await Volunteer.findByIdAndUpdate(
+                volunteerId,
+                { "$pull": { "assignedShifts": shiftId } },
+                { new: true }
+            ).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}})
         },
         addRole: async (_, { name, label, qualifications }) => {
             return Role.create({ name, label, qualifications });
