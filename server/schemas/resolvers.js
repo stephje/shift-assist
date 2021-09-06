@@ -40,7 +40,6 @@ module.exports = {
             if (context.user) {
                 const currentUserData = await User.findOne({ _id: context.user._id });
                 const currentUserId = currentUserData._id
-                console.log("Current User ID", currentUserId)
 
                 const volunteerData = await Volunteer.findOne({ userId: currentUserId })
                 .populate('nominatedRoles')
@@ -52,7 +51,6 @@ module.exports = {
                 .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
                 .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
 
-                console.log(volunteerData)
                 return volunteerData;
               }
               throw new AuthenticationError('Please make sure you have logged in!');

@@ -57,15 +57,6 @@ export default function UserConsole() {
         }
     }
 
-    //This will eventually render all shifts assigned to a user. To be delivered in next slice
-    // function displayShifts() {
-    //     console.log("Shifts will be displayed")
-    // }
-
-    // function viewRegistrations() {
-    //     console.log("Registrations will be displayed")
-    // }
-
 
     //Redirect to login page if not logged in
     if (auth.loggedIn() === false) {

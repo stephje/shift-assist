@@ -138,7 +138,7 @@ const typeDefs = gql`
     volunteer(volunteerId: ID!): Volunteer
     getVolunteers: [Volunteer]!
     getVolunteerRegistration(userId: ID!): [Volunteer]!
-    getCurrentVolunteerData: Volunteer!
+    getCurrentVolunteerData: Volunteer
     getVolunteerIdByUserId(userId: ID!): [Volunteer]!
 
     getShifts: [Shift]!
