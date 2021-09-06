@@ -2,56 +2,65 @@
     {
         "name": "01-mb-a1",
         "label": "Afternoon Main Bar Attendant 1",
-        "timeslots": ["afternoon"],
-        "roles": ["barAttendant"]
+        "timeslot": "afternoon",
+        "role": "barAttendant",
+        "location": "Main Bar"
     },
     {
         "name": "01-mb-a2",
         "label": "Afternoon Main Bar Attendant 2",
-        "timeslots": ["afternoon"],
-        "roles": ["barAttendant"]
+        "timeslot": "afternoon",
+        "role": "barAttendant",
+        "location": "Main Bar"
     },
     {
         "name": "01-mb-m1",
         "label": "Afternoon Main Bar Manager 1",
-        "timeslots": ["afternoon"],
-        "roles": ["barManager"]
+        "timeslot": "afternoon",
+        "role": "barManager",
+        "location": "Main Bar"
     },
     {
         "name": "02-mb-a1",
         "label": "Evening Main Bar Attendant 1",
-        "timeslots": ["evening"],
-        "roles": ["barAttendant"]
+        "timeslot": "evening",
+        "role": "barAttendant",
+        "location": "Main Bar"
     },
     {
         "name": "02-mb-a2",
         "label": "Evening Main Bar Attendant 2",
-        "timeslots": ["evening"],
-        "roles": ["barAttendant"]
+        "timeslot": "evening",
+        "role": "barAttendant",
+        "location": "Main Bar"
     },
     {
         "name": "02-mb-m1",
         "label": "Evening Main Bar Manager 1",
-        "timeslots": ["afternoon"],
-        "roles": ["barManager"]
+        "timeslot": "afternoon",
+        "role": "barManager",
+        "location": "Main Bar"
     },
     {
         "name": "00-sb-d1",
         "label": "Morning Shuttle Bus Driver 1",
-        "timeslots": ["morning"],
-        "roles": ["shuttleBusDriver"]
+        "timeslot": "morning",
+        "role": "shuttleBusDriver",
+        "location": "Shuttle Bus Depot"
     },
     {
         "name": "01-sb-d1",
         "label": "Afternoon Shuttle Bus Driver 1",
-        "timeslots": ["afternoon"],
-        "roles": ["shuttleBusDriver"]
+        "timeslot": "afternoon",
+        "role": "shuttleBusDriver",
+        "location": "Shuttle Bus Depot"
     },
     {
         "name": "02-sb-d1",
         "label": "Evening Shuttle Bus Driver 1",
-        "timeslots": ["evening"],
-        "roles": ["shuttleBusDriver"]
+        "timeslot": "evening",
+        "role": "shuttleBusDriver",
+        "location": "Shuttle Bus Depot"
     }
 
 ]

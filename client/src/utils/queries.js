@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER = gql`
   query user($username: String!) {
@@ -23,104 +23,207 @@ export const QUERY_ME = gql`
 `;
 
 export const GET_VOLUNTEERS = gql`
-    query getVolunteers {
-        getVolunteers {
-            _id
-            firstName
-            lastName
-            email
-            mobile
-            address
-            suburb
-            postcode
-            state
-            previousExperience
-            medical
-            emergencyContactRelationship
-            emergencyContactName
-            emergencyContactPhone
-            commsPermissions
-            termsAndConditions
-            nominatedRoles {
-                _id
-                name
-                label
-                qualifications {
-                    _id
-                    name
-                    label
-                }
-            }
-            qualificationsHeld {
-                _id
-                name
-                label
-            }
-            availability {
-                _id
-                name
-                label
-            }
-        }
-    }
-`;
-
-export const GET_ROLES = gql`
-    query getRoles {
-        getRoles {
-            _id
-            name
-            label
-            qualifications {
-                _id
-            }
-        }
-    }
-`;
-
-export const GET_SHIFTS = gql` 
-query getShifts {
-    getShifts {
-    _id
-    name
-    label
-    timeslots {
+  query getVolunteers {
+    getVolunteers {
       _id
-      name
-      label
-      startTime
-      endTime
-    }
-    roles {
-      _id
-      name
-      label
-      qualifications {
+      firstName
+      lastName
+      email
+      mobile
+      address
+      suburb
+      postcode
+      state
+      previousExperience
+      medical
+      emergencyContactRelationship
+      emergencyContactName
+      emergencyContactPhone
+      commsPermissions
+      termsAndConditions
+      nominatedRoles {
+        _id
+        name
+        label
+        qualifications {
+          _id
+          name
+          label
+        }
+      }
+      qualificationsHeld {
+        _id
+        name
+        label
+      }
+      availability {
         _id
         name
         label
       }
     }
   }
-}
+`;
+
+export const GET_ROLES = gql`
+  query getRoles {
+    getRoles {
+      _id
+      name
+      label
+      qualifications {
+        _id
+      }
+    }
+  }
+`;
+
+export const GET_SHIFTS = gql`
+  query getShifts {
+    getShifts {
+      _id
+      name
+      label
+      timeslots {
+        _id
+        name
+        label
+        startTime
+        endTime
+      }
+      roles {
+        _id
+        name
+        label
+        qualifications {
+          _id
+          name
+          label
+        }
+      }
+    }
+  }
 `;
 
 export const GET_QUALIFICATIONS = gql`
-    query getQualifications {
-        getQualifications {
-            _id
-            name
-            label
-        }
+  query getQualifications {
+    getQualifications {
+      _id
+      name
+      label
     }
+  }
 `;
 
 export const GET_TIMESLOTS = gql`
-    query getTimeslots {
-        getTimeslots {
+  query getTimeslots {
+    getTimeslots {
+      _id
+      name
+      label
+    }
+  }
+`;
+
+export const GET_VOLUNTEER_REGISTRATION = gql`
+  query getVolunteerRegistration($userId: ID!) {
+    getVolunteerRegistration(userId: $userId) {
+      _id
+      userId
+      firstName
+      lastName
+      email
+      mobile
+      address
+      suburb
+      state
+      postcode
+      previousExperience
+      medical
+      emergencyContactName
+      emergencyContactRelationship
+      emergencyContactPhone
+      qualificationsHeld {
+        _id
+        name
+        label
+      }
+      availability {
+        _id
+        name
+        label
+        startTime
+        endTime
+      }
+      nominatedRoles {
+        _id
+        name
+        label
+        qualifications {
+          _id
+          name
+          label
+        }
+      }
+      assignedShifts {
+        _id
+        name
+        label
+        timeslots {
+          _id
+          name
+          label
+          startTime
+          endTime
+        }
+        roles {
+          name
+          _id
+          label
+          qualifications {
             _id
             name
             label
+          }
         }
+      }
     }
+  }
+`;
+
+export const GET_ASSIGNED_SHIFTS = gql`
+  query getAssignedShifts($volunteerId: ID!) {
+    getAssignedShifts(volunteerId: $volunteerId) {
+      _id
+      name
+      label
+      location
+      timeslot {
+        _id
+        name
+        label
+        startTime
+        endTime
+      }
+      role {
+        _id
+        name
+        label
+        qualifications {
+          _id
+          name
+          label
+        }
+      }
+    }
+  }
+`;
+
+export const GET_VOLUNTEER_ID_BY_USER_ID = gql`
+  query getVolunteerIdByUserId($userId: ID!) {
+    getVolunteerRegistration(userId: $userId) {
+      _id
+      userId
+    }
+  }
 `;

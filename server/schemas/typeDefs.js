@@ -87,18 +87,20 @@ const typeDefs = gql`
   }
 
   type Shift {
-    _id: ID
+    _id: ID!
     name: String!
     label: String!
-    timeslots: [Timeslot]
-    roles: [Role]
+    timeslot: Timeslot!
+    role: Role!
+    location: String!
   }
 
   input ShiftInput {
     name: String
     label: String
-    timeslots: [String]
-    roles: [String]
+    timeslots: String
+    role: String
+    location: String
   }
 
   type Timeslot {
@@ -137,6 +139,7 @@ const typeDefs = gql`
     getVolunteers: [Volunteer]!
     getVolunteerRegistration(userId: ID!): [Volunteer]!
     getAssignedShifts(volunteerId: ID!): [Shift]!
+    getVolunteerIdByUserId(userId: ID!): [Volunteer]!
 
     getShifts: [Shift]!
     getRoles: [Role]!

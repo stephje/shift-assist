@@ -28,6 +28,12 @@ async function getObjectIds(arrayOfElements, collection, lookup) {
     return newArray;
 }
 
+async function getObjectId(element, collection, lookup) {
+    const document = await collection.findOne({ [lookup]: element });
+    const documentId = document._id;
+    return documentId;
+}
+
 db.once('open', async () => {
     try {
         // Delete existing qualification documents and seed database from json file
@@ -60,12 +66,12 @@ db.once('open', async () => {
         // Delete existing shift documents and seed database from json file
         await Shift.deleteMany({});
         for (const shift of shiftSeeds) {
-            if (shift.roles) {
-                shift.roles = await getObjectIds(shift.roles, Role, 'name');
+            if (shift.role) {
+                shift.role = await getObjectId(shift.role, Role, 'name');
             }
-            if (shift.timeslots) {
-                shift.timeslots = await getObjectIds(
-                    shift.timeslots,
+            if (shift.timeslot) {
+                shift.timeslot = await getObjectId(
+                    shift.timeslot,
                     Timeslot,
                     'name'
                 );

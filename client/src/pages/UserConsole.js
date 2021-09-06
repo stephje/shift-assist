@@ -1,11 +1,14 @@
-import React from 'react';
-import { Box, Container, Button } from '@material-ui/core';
+import React, { useState } from "react";
+import { Box, Container, Button, Grid } from '@material-ui/core';
 import StickyFooter from '../components/StickyFooter';
 import AppBar from '../components/AppBar';
 import auth from '../utils/auth';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import RegistrationSummary from '../containers/RegistrationSummary';
+import AssignedShiftList from '../containers/AssignedShiftList';
+
 
 
 export default function UserConsole() {
@@ -27,10 +30,42 @@ export default function UserConsole() {
     //Use styles
     const classes = useStyles();
 
-    //This will eventually render all shifts assigned to a user. To be delivered in next slice
-    function displayShifts() {
-        console.log("Shifts will be displayed")
+    //Set initial state to false
+    const [registrationVisibility, setRegistrationVisibility] = useState(false);
+    const [assignedShiftVisibility, setAssignedShiftVisibility] = useState(false);
+
+    function toggleView(event) { 
+        switch (event.target.textContent) {
+            case 'View and Edit Registration':
+                if(registrationVisibility){
+                    setRegistrationVisibility(false);
+                } else {
+                    setAssignedShiftVisibility(false);
+                    setRegistrationVisibility(true);
+                }
+                break;
+            case 'View Assigned Shifts':
+                if(assignedShiftVisibility){
+                    setAssignedShiftVisibility(false);
+                } else {
+                    setRegistrationVisibility(false);
+                    setAssignedShiftVisibility(true);
+                }
+                break;
+            default:
+                break;
+        }
     }
+
+    //This will eventually render all shifts assigned to a user. To be delivered in next slice
+    // function displayShifts() {
+    //     console.log("Shifts will be displayed")
+    // }
+
+    // function viewRegistrations() {
+    //     console.log("Registrations will be displayed")
+    // }
+
 
     //Redirect to login page if not logged in
     if (auth.loggedIn() === false) {
@@ -49,18 +84,31 @@ export default function UserConsole() {
                     className={classes.mainButton}
                     component={Link} to="/register"
                 >
-                    Volunteer Registration
+                    New Volunteer Registration
                 </Button>
                 <Button
                     size='large'
                     variant='contained'
                     color='primary'
                     className={classes.mainButton}
-                    onClick={displayShifts}
+                    onClick={toggleView}
                     >
-                        View Shifts
-                    </Button>
+                        View and Edit Registration
+                </Button>
+                <Button
+                    size='large'
+                    variant='contained'
+                    color='primary'
+                    className={classes.mainButton}
+                    onClick={toggleView}
+                    >
+                        View Assigned Shifts
+                </Button>
                 </Box>
+                <Grid>
+                    {registrationVisibility ? <RegistrationSummary /> : null}
+                    {assignedShiftVisibility ? <AssignedShiftList /> : null}
+                </Grid>
             </Container>
             <StickyFooter />
         </Container>

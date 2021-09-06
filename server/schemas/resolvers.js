@@ -12,6 +12,12 @@ async function getObjectIds(arrayOfElements, collection) {
     return newArray;
 }
 
+async function getObjectId(element, collection, lookup) {
+    const document = await collection.findOne({ [lookup]: element });
+    const documentId = document._id;
+    return documentId;
+}
+
 module.exports = {
     Query: {
         users: async () => {
@@ -34,12 +40,24 @@ module.exports = {
         },
 
         getAssignedShifts: async (_, { volunteerId }) => {
-            const volunteerData = await Volunteer.findById({ _id: volunteerId }).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}});
+            const volunteerData = await Volunteer.findById({ _id: volunteerId }).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}}).populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}}).populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}});
+            console.log(volunteerData.assignedShifts)
             return volunteerData.assignedShifts;
         },
 
         getVolunteerRegistration: async (_, { userId }) => {
-            return await Volunteer.find({ userId: userId }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}}).populate({path: 'assignedShifts', populate:{path: 'timeslots', model: Timeslot}}).populate({path: 'assignedShifts', populate:{path: 'roles', model: Role}}).populate({path: 'assignedShifts', populate:{path: 'roles', populate: {path: 'qualifications', model: Qualification}}});
+            return await Volunteer.find({ userId: userId }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}).populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}}).populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}}).populate({path: 'assignedShifts', populate:{path: 'role', model: Role}}).populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}});
+        },
+
+        getVolunteerIdByUserId: async (parent, args, context) => {
+            if (context.user) {
+                // const volunteerData =  Volunteer.find({ userId: context.user._id });
+                // console.log(volunteerData);
+                // return volunteerData._id;
+                const userData = User.findOne({ _id: context.user._id });
+                console.log(userData);
+            }
+            throw new AuthenticationError('Please make sure you have logged in!');
         },
 
         volunteer: async (_, { volunteerId }) => {
@@ -59,7 +77,7 @@ module.exports = {
         },
 
         getShifts: async () => {
-            return await Shift.find().populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}})
+            return await Shift.find().populate('timeslot').populate('role').populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
         }
     },
 
@@ -126,8 +144,8 @@ module.exports = {
             return Qualification.create({ name });
         },
         addShift: async (_, {shift}) => {
-            shift.timeslots = await getObjectIds(shift.timeslots, Timeslot);
-            shift.roles = await getObjectIds(shift.roles, Role);
+            shift.timeslot = await getObjectId(shift.timeslots, Timeslot, 'name');
+            shift.role = await getObjectId(shift.roles, Role, 'name');
             return Shift.create(shift)
         },
         removeShift: async (_, { shiftId }) => {
