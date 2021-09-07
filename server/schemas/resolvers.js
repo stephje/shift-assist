@@ -170,12 +170,17 @@ module.exports = {
     
         return { token, user };
         },
-        addVolunteer: async (_, {volunteer}) => {
-            //Replace name values in arrays with ObjectIds and create new volunteer document
-            volunteer.qualificationsHeld = await getObjectIds(volunteer.qualificationsHeld, Qualification);
-            volunteer.availability = await getObjectIds(volunteer.availability, Timeslot);
-            volunteer.nominatedRoles = await getObjectIds(volunteer.nominatedRoles, Role);
-            return Volunteer.create(volunteer);
+        addVolunteer: async (_, {volunteer}, context) => {
+            if (context.user) {
+                const userId = context.user._id
+                //Replace name values in arrays with ObjectIds and create new volunteer document
+                volunteer.qualificationsHeld = await getObjectIds(volunteer.qualificationsHeld, Qualification);
+                volunteer.availability = await getObjectIds(volunteer.availability, Timeslot);
+                volunteer.nominatedRoles = await getObjectIds(volunteer.nominatedRoles, Role);
+                volunteer.userId = userId;
+                return Volunteer.create(volunteer);
+            }
+            throw new AuthenticationError('Please make sure you have logged in!');
         },
         removeVolunteer: async (_, { volunteerId }) => {
             return await Volunteer.findByIdAndDelete(volunteerId);
@@ -189,21 +194,6 @@ module.exports = {
                 { new: true }
             );
         },
-        // assignShiftToVolunteer: async (_, {shiftId, volunteerId}) => {
-        //     return await Volunteer.findByIdAndUpdate(
-        //         volunteerId,
-        //         { "$addToSet": { "assignedShifts": shiftId } },
-        //         { new: true }
-        //     )
-        //     .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
-        //     .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
-        //     .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
-        //     .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
-        //     .populate('nominatedRoles')
-        //     .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
-        //     .populate('qualificationsHeld')
-        //     .populate('availability')
-        // },
         assignVolunteerToShift: async (_, {shiftId, volunteerId}) => {
             return await Shift.findByIdAndUpdate(
                 shiftId,

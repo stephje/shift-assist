@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
 import AdminConsole from './pages/AdminConsole';
 import UserConsole from './pages/UserConsole';
+import ScrollToTop from './hooks/ScrollToTop';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -41,7 +42,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column justify-center align-center min-100-vh bg-primary">
+        <React.Fragment>
+          <ScrollToTop />
           <Switch>
             <Route exact path="/">
               <Home />
@@ -65,7 +67,7 @@ function App() {
               <NotFound />
             </Route>
           </Switch>
-        </div> 
+        </React.Fragment>
       </Router>
     </ApolloProvider>
   );

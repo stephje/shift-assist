@@ -80,6 +80,8 @@ ShiftAssist is a tool designed to significantly reduce the time and effort requi
 
 [SimpleTut's guide](https://www.youtube.com/watch?v=MV9NC3FoCmM&ab_channel=SimpleTut) on creating forms with Formik and Material-UI (YouTube) was used as a reference for the volunteer registration form. 
 
+[User zurfyx's ScrollToTop implementation with React Hooks](https://stackoverflow.com/questions/36904185/react-router-scroll-to-top-on-every-transition) as described on Stack Overflow.
+
 ## Contributing
 
 To contribute to this project, please reach out to the creator via email (contact details below).

@@ -15,6 +15,7 @@ import {
 import { GET_ASSIGNED_SHIFTS_BY_USER_ID } from '../utils/queries';
 import AnimatedModal from '../components/AnimatedModal';
 
+
 // Table cells with custom styling
 const StyledTableCell = withStyles((theme) => ({
   head: {

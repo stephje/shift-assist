@@ -12,6 +12,7 @@ import QualificationsChecklist from '../containers/QualificationsChecklist';
 import TimeslotChecklist from '../containers/TimeslotChecklist';
 import { ADD_VOLUNTEER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
+import { useHistory } from "react-router-dom";
 
 // Set some styling for the spacing of the form wrapper div
 const useStyles = makeStyles(theme => ({
@@ -74,6 +75,7 @@ const FORM_VALIDATION = yup.object().shape({
 export default function VolunteerRegistration() {
     // Use styles defined above
     const classes = useStyles();
+    const history = useHistory();
 
     // Mutation to add new volunteer
     const [addVolunteer] = useMutation(ADD_VOLUNTEER);
@@ -122,7 +124,9 @@ export default function VolunteerRegistration() {
         try {
             // Add volunteer passing in volunteerObject which is the organised data from the form
             await addVolunteer({ variables: { volunteer: volunteerObject } });
-            alert("Form Submitted Successfully!");
+            alert('Form Submitted Successfully!');
+            history.push("/userconsole");
+            
         } catch (error) {
             console.error(error);
         }
