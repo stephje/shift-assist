@@ -73,7 +73,7 @@ function ShiftList() {
 
     //Add volunteer search and use that as input
     assignVolunteerToShift({
-      variables: { shiftId: shiftID, volunteerId: "61360718e61bda65c45a9b62" },
+      variables: { shiftId: shiftID, volunteerId: "61375aba4737d5070883af0e" },
     });
   }
 
@@ -104,7 +104,7 @@ function ShiftList() {
     console.log("Not Found");
   } else if (data.getShifts) {
     const shiftArray = data.getShifts;
-    console.log(shiftArray)
+    // console.log(shiftArray)
 
     return (
       <Grid container className={classes.root} spacing={2}>

@@ -138,8 +138,11 @@ const typeDefs = gql`
     volunteer(volunteerId: ID!): Volunteer
     getVolunteers: [Volunteer]!
     getVolunteerRegistration(userId: ID!): [Volunteer]!
-    getCurrentVolunteerData: Volunteer
     getVolunteerIdByUserId(userId: ID!): [Volunteer]!
+
+    getCurrentVolunteerData: Volunteer
+# MAKE THIS WORK
+    getAssignedShiftsByUserId: [Shift]
 
     getShifts: [Shift]!
     getRoles: [Role]!
@@ -161,7 +164,7 @@ const typeDefs = gql`
     removeShift(shiftId: ID!): Shift
     updateShift(shiftId: ID!, shift: ShiftInput): Shift
     
-    assignShiftToVolunteer(shiftId: ID!, volunteerId: ID!): Volunteer
+    # assignShiftToVolunteer(shiftId: ID!, volunteerId: ID!): Volunteer
     assignVolunteerToShift(shiftId: ID!, volunteerId: ID!): Shift
     removeVolunteerFromShift(shiftId: ID!, volunteerId: ID!): Volunteer
 

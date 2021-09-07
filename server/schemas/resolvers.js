@@ -56,6 +56,38 @@ module.exports = {
               throw new AuthenticationError('Please make sure you have logged in!');
         },
 
+        getAssignedShiftsByUserId: async (parent, args, context) => {
+            
+            if (context.user) {
+                const currentUserData = await User.findOne({ _id: context.user._id });
+                const currentUserId = currentUserData._id
+
+                const volunteerData = await Volunteer.findOne({ userId: currentUserId })
+                .populate('nominatedRoles')
+                .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+                .populate('qualificationsHeld')
+                .populate('availability')
+                .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+                .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
+
+                const volunteerId = volunteerData._id;
+
+                const shiftData = await Shift.find({assignedVolunteer: volunteerId})
+                .populate("timeslot")
+                .populate("role")
+                .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+                .populate("assignedVolunteer")
+                .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+                .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
+                .populate({path: "assignedVolunteer", populate: {path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}})
+
+                return shiftData;
+              }
+              throw new AuthenticationError('Please make sure you have logged in!');
+        },
+
         getVolunteerIdByUserId: async (parent, args, context) => {
             if (context.user) {
                 // const volunteerData =  Volunteer.find({ userId: context.user._id });

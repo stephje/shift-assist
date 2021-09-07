@@ -12,7 +12,7 @@ import {
     TableRow, 
     Paper
 } from '@material-ui/core';
-import { GET_CURRENT_VOLUNTEER_DATA } from '../utils/queries';
+import { GET_ASSIGNED_SHIFTS_BY_USER_ID } from '../utils/queries';
 import AnimatedModal from '../components/AnimatedModal';
 
 // Table cells with custom styling
@@ -47,7 +47,7 @@ export default function AssignedShiftList() {
   const classes = useStyles();
 
   // Get volunteer data for currently logged in user
-  const {error, loading, data} = useQuery(GET_CURRENT_VOLUNTEER_DATA);
+  const {error, loading, data} = useQuery(GET_ASSIGNED_SHIFTS_BY_USER_ID);
 
   if (error) {
       console.error(error.message)
@@ -73,8 +73,7 @@ export default function AssignedShiftList() {
 
   // If there is volunteer data and assigned shifts, display it in a table
   if (data) {
-      const volunteerData = data.getCurrentVolunteerData;
-      const shiftArray = volunteerData.assignedShifts
+      const shiftArray = data.getAssignedShiftsByUserId;
     return (
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
