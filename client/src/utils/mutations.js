@@ -68,75 +68,6 @@ export const REMOVE_SHIFT = gql`
   }
 `;
 
-// export const ASSIGN_SHIFT_TO_VOLUNTEER = gql`
-// mutation assignShiftToVolunteer($shiftId: ID!, $volunteerId: ID!) {
-//   assignShiftToVolunteer(shiftId: $shiftId, volunteerId: $volunteerId) {
-//     _id
-//     userId
-//     firstName
-//     lastName
-//     email
-//     mobile
-//     address
-//     suburb
-//     state
-//     postcode
-//     previousExperience
-//     medical
-//     emergencyContactName
-//     emergencyContactRelationship
-//     emergencyContactPhone
-//     commsPermissions
-//     termsAndConditions
-//     nominatedRoles {
-//       _id
-//       name
-//       label
-//       qualifications {
-//         _id
-//         name
-//         label
-//       }
-//     }
-//     qualificationsHeld {
-//       _id
-//       name
-//       label
-//     }
-//     availability {
-//       _id
-//       name
-//       label
-//       startTime
-//       endTime
-//     }
-//     assignedShifts {
-//       _id
-//       name
-//       label
-//       timeslot {
-//         _id
-//         name
-//         label
-//         startTime
-//         endTime
-//       }
-//       role {
-//         _id
-//         name
-//         label
-//         qualifications {
-//           _id
-//           name
-//           label
-//         }
-//       }
-//       location
-//     }
-//   }
-// }
-// `;
-
 export const ASSIGN_VOLUNTEER_TO_SHIFT = gql`
   mutation assignVolunteerToShift($shiftId: ID!, $volunteerId: ID!) {
     assignVolunteerToShift(shiftId: $shiftId, volunteerId: $volunteerId) {
@@ -192,4 +123,35 @@ export const ASSIGN_VOLUNTEER_TO_SHIFT = gql`
       }
     }
   }
+`;
+
+export const REMOVE_VOLUNTEER_FROM_SHIFT = gql`
+mutation removeVolunteerFromShift($shiftId: ID!, $volunteerId: ID!) {
+  removeVolunteerFromShift(shiftId: $shiftId, volunteerId: $volunteerId) {
+    _id
+    name
+    label
+    timeslot {
+      _id
+      name
+      label
+      startTime
+      endTime
+    }
+    role {
+      _id
+      name
+      label
+      qualifications {
+        _id
+        name
+        label
+      }
+    }
+    location
+    assignedVolunteer {
+      _id
+    }
+  }
+}
 `;

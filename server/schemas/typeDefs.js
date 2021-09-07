@@ -166,7 +166,7 @@ const typeDefs = gql`
     
     # assignShiftToVolunteer(shiftId: ID!, volunteerId: ID!): Volunteer
     assignVolunteerToShift(shiftId: ID!, volunteerId: ID!): Shift
-    removeVolunteerFromShift(shiftId: ID!, volunteerId: ID!): Volunteer
+    removeVolunteerFromShift(shiftId: ID!, volunteerId: ID!): Shift
 
     addRole(role: RoleInput): Role
     addQualification(qualification: QualificationInput): Qualification

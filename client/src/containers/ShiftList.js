@@ -10,12 +10,12 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_SHIFTS } from "../utils/queries";
-import { ASSIGN_VOLUNTEER_TO_SHIFT } from "../utils/mutations";
+import { ASSIGN_VOLUNTEER_TO_SHIFT, REMOVE_VOLUNTEER_FROM_SHIFT } from "../utils/mutations";
+import TableBodyContent from "../components/adminComponents/TableBodyContent";
 
 // Styling for ShiftList
 const useStyles = makeStyles((theme) => ({
@@ -54,22 +54,12 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-// Table rows with custom styling
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
 function ShiftList() {
   // Use styling defined above
   const classes = useStyles();
 
   function assignVolunteer(event) {
     const shiftID = event.currentTarget.name;
-    console.log("assign", shiftID);
 
     //Add volunteer search and use that as input
     assignVolunteerToShift({
@@ -79,7 +69,10 @@ function ShiftList() {
 
   function removeVolunteer(event) {
     const shiftID = event.currentTarget.name;
-    console.log("remove", shiftID);
+
+    removeVolunteerFromShift({
+      variables: { shiftId: shiftID, volunteerId: "61375aba4737d5070883af0e" },
+    });
   }
 
   // Query DB for all shifts
@@ -87,6 +80,10 @@ function ShiftList() {
 
   // Mutation to assign volunteer to a shift, then refetch queries to re-render list
   const [assignVolunteerToShift] = useMutation(ASSIGN_VOLUNTEER_TO_SHIFT, {
+    refetchQueries: [GET_SHIFTS, "getShifts"],
+  });
+
+  const [removeVolunteerFromShift] = useMutation(REMOVE_VOLUNTEER_FROM_SHIFT, {
     refetchQueries: [GET_SHIFTS, "getShifts"],
   });
 
@@ -123,31 +120,7 @@ function ShiftList() {
               </TableHead>
               <TableBody>
                 {shiftArray.map((shift) => (
-                  <StyledTableRow key={shift._id}>
-                    <StyledTableCell component="th" scope="row">
-                      {shift.name}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      {shift.timeslot.label}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      {shift.role.label}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      {shift.location}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      {/* {shift.assignedVolunteer.firstName} */}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      <Button name={shift._id} onClick={assignVolunteer}>
-                        Assign
-                      </Button>
-                      <Button name={shift._id} onClick={removeVolunteer}>
-                        Remove
-                      </Button>
-                    </StyledTableCell>
-                  </StyledTableRow>
+                  <TableBodyContent key={shift._id} shift={shift} assignVolunteer={assignVolunteer} removeVolunteer={removeVolunteer}/>
                 ))}
               </TableBody>
             </Table>
