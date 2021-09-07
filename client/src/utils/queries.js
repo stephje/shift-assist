@@ -79,30 +79,31 @@ export const GET_ROLES = gql`
 `;
 
 export const GET_SHIFTS = gql`
-  query getShifts {
-    getShifts {
+query getShifts {
+  getShifts {
+    _id
+    name
+    label
+    timeslot {
       _id
       name
       label
-      timeslots {
+      startTime
+      endTime
+    }
+    role {
+      _id
+      name
+      label
+      qualifications {
         _id
         name
         label
-        startTime
-        endTime
-      }
-      roles {
-        _id
-        name
-        label
-        qualifications {
-          _id
-          name
-          label
-        }
       }
     }
+    location
   }
+}
 `;
 
 export const GET_QUALIFICATIONS = gql`
