@@ -10,11 +10,12 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_SHIFTS } from "../utils/queries";
-import { REMOVE_SHIFT } from '../utils/mutations';
+import { ASSIGN_VOLUNTEER_TO_SHIFT } from "../utils/mutations";
 
 // Styling for ShiftList
 const useStyles = makeStyles((theme) => ({
@@ -66,21 +67,28 @@ function ShiftList() {
   // Use styling defined above
   const classes = useStyles();
 
-      // Mutation to remove a shift, then refetch queries to re-render list
-      const [removeShift] = useMutation(REMOVE_SHIFT, {
-        refetchQueries: [GET_SHIFTS, 'getShifts'],
+  function assignVolunteer(event) {
+    const shiftID = event.currentTarget.name;
+    console.log("assign", shiftID);
+
+    //Add volunteer search and use that as input
+    assignVolunteerToShift({
+      variables: { shiftId: shiftID, volunteerId: "61360718e61bda65c45a9b62" },
     });
+  }
 
-    function deleteShift(event) {
-        const shiftID = event.currentTarget.id;
-
-        removeShift({
-            variables: { removeShiftShiftId: shiftID },
-        });
-    }
+  function removeVolunteer(event) {
+    const shiftID = event.currentTarget.name;
+    console.log("remove", shiftID);
+  }
 
   // Query DB for all shifts
   const { loading, error, data } = useQuery(GET_SHIFTS);
+
+  // Mutation to assign volunteer to a shift, then refetch queries to re-render list
+  const [assignVolunteerToShift] = useMutation(ASSIGN_VOLUNTEER_TO_SHIFT, {
+    refetchQueries: [GET_SHIFTS, "getShifts"],
+  });
 
   if (loading) {
     return (
@@ -95,8 +103,8 @@ function ShiftList() {
   if (!data.getShifts) {
     console.log("Not Found");
   } else if (data.getShifts) {
-
     const shiftArray = data.getShifts;
+    console.log(shiftArray)
 
     return (
       <Grid container className={classes.root} spacing={2}>
@@ -109,12 +117,13 @@ function ShiftList() {
                   <StyledTableCell align="left">Timeslot</StyledTableCell>
                   <StyledTableCell align="left">Role</StyledTableCell>
                   <StyledTableCell align="left">Location</StyledTableCell>
-                  <StyledTableCell align="left">Description</StyledTableCell>
+                  <StyledTableCell align="left">Assigned</StyledTableCell>
+                  <StyledTableCell align="left"> </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {shiftArray.map((shift) => (
-                  <StyledTableRow key={shift.label}>
+                  <StyledTableRow key={shift._id}>
                     <StyledTableCell component="th" scope="row">
                       {shift.name}
                     </StyledTableCell>
@@ -128,7 +137,15 @@ function ShiftList() {
                       {shift.location}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {shift.label}
+                      {/* {shift.assignedVolunteer.firstName} */}
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                      <Button name={shift._id} onClick={assignVolunteer}>
+                        Assign
+                      </Button>
+                      <Button name={shift._id} onClick={removeVolunteer}>
+                        Remove
+                      </Button>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

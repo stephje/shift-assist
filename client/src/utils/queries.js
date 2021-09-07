@@ -79,31 +79,70 @@ export const GET_ROLES = gql`
 `;
 
 export const GET_SHIFTS = gql`
-query getShifts {
-  getShifts {
-    _id
-    name
-    label
-    timeslot {
+  query getShifts {
+    getShifts {
       _id
       name
       label
-      startTime
-      endTime
-    }
-    role {
-      _id
-      name
-      label
-      qualifications {
+      timeslot {
         _id
         name
         label
+        startTime
+        endTime
+      }
+      role {
+        _id
+        name
+        label
+        qualifications {
+          _id
+          name
+          label
+        }
+      }
+      location
+      assignedVolunteer {
+        _id
+        userId
+        firstName
+        lastName
+        email
+        mobile
+        address
+        suburb
+        state
+        postcode
+        previousExperience
+        medical
+        emergencyContactName
+        emergencyContactRelationship
+        emergencyContactPhone
+        nominatedRoles {
+          _id
+          name
+          label
+          qualifications {
+            _id
+            name
+            label
+          }
+        }
+        qualificationsHeld {
+          _id
+          name
+          label
+        }
+        availability {
+          _id
+          name
+          label
+          startTime
+          endTime
+        }
       }
     }
-    location
   }
-}
 `;
 
 export const GET_QUALIFICATIONS = gql`
@@ -194,58 +233,25 @@ export const GET_VOLUNTEER_REGISTRATION = gql`
 
 export const GET_CURRENT_VOLUNTEER_DATA = gql`
   query getCurrentVolunteerData {
-  getCurrentVolunteerData {
-    _id
-    userId
-    firstName
-    lastName
-    email
-    mobile
-    address
-    suburb
-    state
-    postcode
-    previousExperience
-    medical
-    emergencyContactName
-    emergencyContactRelationship
-    emergencyContactPhone
-    commsPermissions
-    termsAndConditions
-    nominatedRoles {
+    getCurrentVolunteerData {
       _id
-      name
-      label
-      qualifications {
-        _id
-        name
-        label
-      }
-    }
-    qualificationsHeld {
-      _id
-      name
-      label
-    }
-    availability {
-      _id
-      name
-      label
-      startTime
-      endTime
-    }
-    assignedShifts {
-      _id
-      name
-      label
-      timeslot {
-        _id
-        name
-        label
-        startTime
-        endTime
-      }
-      role {
+      userId
+      firstName
+      lastName
+      email
+      mobile
+      address
+      suburb
+      state
+      postcode
+      previousExperience
+      medical
+      emergencyContactName
+      emergencyContactRelationship
+      emergencyContactPhone
+      commsPermissions
+      termsAndConditions
+      nominatedRoles {
         _id
         name
         label
@@ -255,10 +261,43 @@ export const GET_CURRENT_VOLUNTEER_DATA = gql`
           label
         }
       }
-      location
+      qualificationsHeld {
+        _id
+        name
+        label
+      }
+      availability {
+        _id
+        name
+        label
+        startTime
+        endTime
+      }
+      assignedShifts {
+        _id
+        name
+        label
+        timeslot {
+          _id
+          name
+          label
+          startTime
+          endTime
+        }
+        role {
+          _id
+          name
+          label
+          qualifications {
+            _id
+            name
+            label
+          }
+        }
+        location
+      }
     }
   }
-}
 `;
 
 export const GET_VOLUNTEER_ID_BY_USER_ID = gql`

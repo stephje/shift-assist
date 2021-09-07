@@ -89,7 +89,7 @@ export default function AssignedShiftList() {
             </TableHead>
             <TableBody>
               {shiftArray.map((shift) => (
-                <StyledTableRow key={shift.label}>
+                <StyledTableRow key={shift._id}>
                   <StyledTableCell component="th" scope="row">
                     {shift.name}
                   </StyledTableCell>

@@ -36,7 +36,6 @@ const typeDefs = gql`
     nominatedRoles: [Role]
     qualificationsHeld: [Qualification]
     availability: [Timeslot]
-    assignedShifts: [Shift]
   }
 
   input VolunteerInput {
@@ -59,7 +58,6 @@ const typeDefs = gql`
     nominatedRoles: [String]
     qualificationsHeld: [String]
     availability: [String]
-    assignedShifts: [String]
   }
 
   type Qualification {
@@ -93,6 +91,7 @@ const typeDefs = gql`
     timeslot: Timeslot!
     role: Role!
     location: String!
+    assignedVolunteer: Volunteer
   }
 
   input ShiftInput {
@@ -101,6 +100,7 @@ const typeDefs = gql`
     timeslots: String
     role: String
     location: String
+    assignedVolunteer: String
   }
 
   type Timeslot {
@@ -161,7 +161,8 @@ const typeDefs = gql`
     removeShift(shiftId: ID!): Shift
     updateShift(shiftId: ID!, shift: ShiftInput): Shift
     
-    assignVolunteerToShift(shiftId: ID!, volunteerId: ID!): Volunteer
+    assignShiftToVolunteer(shiftId: ID!, volunteerId: ID!): Volunteer
+    assignVolunteerToShift(shiftId: ID!, volunteerId: ID!): Shift
     removeVolunteerFromShift(shiftId: ID!, volunteerId: ID!): Volunteer
 
     addRole(role: RoleInput): Role

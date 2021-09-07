@@ -104,7 +104,14 @@ module.exports = {
         },
 
         getShifts: async () => {
-            return await Shift.find().populate('timeslot').populate('role').populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+            return await Shift.find()
+            .populate("timeslot")
+            .populate("role")
+            .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+            .populate("assignedVolunteer")
+            .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+            .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
+            .populate({path: "assignedVolunteer", populate: {path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}})
         }
     },
 
@@ -150,16 +157,33 @@ module.exports = {
                 { new: true }
             );
         },
+        // assignShiftToVolunteer: async (_, {shiftId, volunteerId}) => {
+        //     return await Volunteer.findByIdAndUpdate(
+        //         volunteerId,
+        //         { "$addToSet": { "assignedShifts": shiftId } },
+        //         { new: true }
+        //     )
+        //     .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+        //     .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+        //     .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+        //     .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
+        //     .populate('nominatedRoles')
+        //     .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+        //     .populate('qualificationsHeld')
+        //     .populate('availability')
+        // },
         assignVolunteerToShift: async (_, {shiftId, volunteerId}) => {
-            return await Volunteer.findByIdAndUpdate(
-                volunteerId,
-                { "$addToSet": { "assignedShifts": shiftId } },
+            return await Shift.findByIdAndUpdate(
+                shiftId,
+                { "assignedVolunteer": volunteerId },
                 { new: true }
             )
-            .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
-            .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
-            .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
-            .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
+            .populate("timeslot")
+            .populate("role")
+            .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+            .populate("assignedVolunteer")
+            .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+            .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
         },
         removeVolunteerFromShift: async (_, {shiftId, volunteerId}) => {
             return await Volunteer.findByIdAndUpdate(
