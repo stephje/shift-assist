@@ -5,12 +5,10 @@ const roleSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true,
   },
   label: {
     type: String,
     required: true,
-    trim: true,
   },
   qualifications: [{
     type: Schema.Types.ObjectId,
@@ -21,3 +19,4 @@ const roleSchema = new Schema({
 const Role = model('role', roleSchema);
 
 module.exports = Role;
+ 

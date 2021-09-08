@@ -17,6 +17,7 @@ const typeDefs = gql`
   # "Volunteer" type defines queryable fields for volunteers.
   type Volunteer {
     _id: ID
+    userId: ID
     firstName: String!
     lastName: String!
     email: String!
@@ -38,6 +39,7 @@ const typeDefs = gql`
   }
 
   input VolunteerInput {
+    userId: String
     firstName: String!
     lastName: String!
     email: String!
@@ -83,18 +85,22 @@ const typeDefs = gql`
   }
 
   type Shift {
-    _id: ID
+    _id: ID!
     name: String!
     label: String!
-    timeslots: [Timeslot]
-    roles: [Role]
+    timeslot: Timeslot!
+    role: Role!
+    location: String!
+    assignedVolunteer: Volunteer
   }
 
   input ShiftInput {
     name: String
     label: String
-    timeslots: [TimeslotInput]
-    roles: [RoleInput]
+    timeslots: String
+    role: String
+    location: String
+    assignedVolunteer: String
   }
 
   type Timeslot {
@@ -130,14 +136,20 @@ const typeDefs = gql`
     me: User
 
     volunteer(volunteerId: ID!): Volunteer
-
     getVolunteers: [Volunteer]!
-    getShifts: [Shift]!
+    getVolunteerRegistration(userId: ID!): [Volunteer]!
+    getVolunteerIdByUserId(userId: ID!): [Volunteer]!
 
+    getCurrentVolunteerData: Volunteer
+# MAKE THIS WORK
+    getAssignedShiftsByUserId: [Shift]
+
+    getShifts: [Shift]!
     getRoles: [Role]!
     getQualifications: [Qualification]!
     getTimeslots: [Timeslot]!
     getLocations: [Location]!
+    
   }
 
   type Mutation {
@@ -148,12 +160,15 @@ const typeDefs = gql`
     removeVolunteer(volunteerId: ID!): Volunteer
     updateVolunteer(volunteerId: ID!, volunteer: VolunteerInput): Volunteer
 
-    
+    addShift(shift: ShiftInput): Shift
     removeShift(shiftId: ID!): Shift
-    updateShift(ShiftId: ID!, shift: ShiftInput): Shift
+    updateShift(shiftId: ID!, shift: ShiftInput): Shift
+    
+    # assignShiftToVolunteer(shiftId: ID!, volunteerId: ID!): Volunteer
+    assignVolunteerToShift(shiftId: ID!, volunteerId: ID!): Shift
+    removeVolunteerFromShift(shiftId: ID!, volunteerId: ID!): Shift
 
     addRole(role: RoleInput): Role
-    addShift(shift: ShiftInput): Shift
     addQualification(qualification: QualificationInput): Qualification
     addTimeslot(timeslot: TimeslotInput): Timeslot
     addLocation(location: LocationInput): Location

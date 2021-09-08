@@ -2,8 +2,14 @@ const { Schema, model } = require('mongoose');
 const Role = require('./Role')
 const Qualification = require('./Qualification')
 const Timeslot = require('./Timeslot')
+// const Shift = require('./Shift')
+const User = require('./User')
 
 const volunteerSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: User
+  },
   firstName: {
     type: String,
     required: true,
@@ -76,7 +82,11 @@ const volunteerSchema = new Schema({
   availability: [{
     type: Schema.Types.ObjectId,
     ref: Timeslot
-  }]
+  }],
+  // assignedShifts: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: Shift
+  // }
 
 });
 

@@ -1,5 +1,5 @@
 import { createTheme } from '@material-ui/core/styles';
-import { red, teal } from '@material-ui/core/colors';
+import { red, teal, blueGrey } from '@material-ui/core/colors';
 
 
 // A custom theme for this app
@@ -13,6 +13,9 @@ const theme = createTheme({
       },
       error: {
         main: red.A400,
+      },
+      info: {
+        main: blueGrey[500]
       },
       background: {
         default: '#fafafa',

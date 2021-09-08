@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const Role = require('./Role')
 const Timeslot = require('./Timeslot')
-
+const Volunteer = require('./Volunteer')
 
 const shiftSchema = new Schema({
   name: {
@@ -15,15 +15,22 @@ const shiftSchema = new Schema({
     required: true,
     trim: true,
   },
-  timeslots: [{
+  timeslot: {
     type: Schema.Types.ObjectId,
-    ref: Timeslot
-}],
-  roles: [{
+    ref: Timeslot,
+  },
+  role: {
     type: Schema.Types.ObjectId,
-    ref: Role
-}]
-
+    ref: Role,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  assignedVolunteer: {
+    type: Schema.Types.ObjectId,
+    ref: Volunteer,
+  }
 });
 
 const Shift = model('shift', shiftSchema);

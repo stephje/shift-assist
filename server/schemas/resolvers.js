@@ -12,6 +12,12 @@ async function getObjectIds(arrayOfElements, collection) {
     return newArray;
 }
 
+async function getObjectId(element, collection, lookup) {
+    const document = await collection.findOne({ [lookup]: element });
+    const documentId = document._id;
+    return documentId;
+}
+
 module.exports = {
     Query: {
         users: async () => {
@@ -24,13 +30,93 @@ module.exports = {
 
         me: async (parent, args, context) => {
             if (context.user) {
-              return User.findOne({ _id: context.user._id });
+              return await User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError('Please make sure you have logged in!');
-          },
+        },
+
+        getCurrentVolunteerData: async (parent, args, context) => {
+            
+            if (context.user) {
+                const currentUserData = await User.findOne({ _id: context.user._id });
+                const currentUserId = currentUserData._id
+
+                const volunteerData = await Volunteer.findOne({ userId: currentUserId })
+                .populate('nominatedRoles')
+                .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+                .populate('qualificationsHeld')
+                .populate('availability')
+                .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+                .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
+
+                return volunteerData;
+              }
+              throw new AuthenticationError('Please make sure you have logged in!');
+        },
+
+        getAssignedShiftsByUserId: async (parent, args, context) => {
+            
+            if (context.user) {
+                const currentUserData = await User.findOne({ _id: context.user._id });
+                const currentUserId = currentUserData._id
+
+                const volunteerData = await Volunteer.findOne({ userId: currentUserId })
+                .populate('nominatedRoles')
+                .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+                .populate('qualificationsHeld')
+                .populate('availability')
+                .populate({path: 'assignedShifts', populate:{path: 'shifts', model: Shift}})
+                .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+                .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}})
+
+                const volunteerId = volunteerData._id;
+
+                const shiftData = await Shift.find({assignedVolunteer: volunteerId})
+                .populate("timeslot")
+                .populate("role")
+                .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+                .populate("assignedVolunteer")
+                .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+                .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
+                .populate({path: "assignedVolunteer", populate: {path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}})
+
+                return shiftData;
+              }
+              throw new AuthenticationError('Please make sure you have logged in!');
+        },
+
+        getVolunteerIdByUserId: async (parent, args, context) => {
+            if (context.user) {
+                // const volunteerData =  Volunteer.find({ userId: context.user._id });
+                // console.log(volunteerData);
+                // return volunteerData._id;
+                const userData = User.findOne({ _id: context.user._id });
+                console.log(userData);
+            }
+            throw new AuthenticationError('Please make sure you have logged in!');
+        },
 
         getVolunteers: async () => {
-            return await Volunteer.find().sort({ lastName: 1 }).populate('nominatedRoles').populate('qualificationsHeld').populate('availability').populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+            return await Volunteer.find().sort({ lastName: 1 })
+            .populate('nominatedRoles')
+            .populate('qualificationsHeld')
+            .populate('availability')
+            .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+        },
+
+        getVolunteerRegistration: async (_, { userId }) => {
+            return await Volunteer.find({ userId: userId })
+            .populate('nominatedRoles')
+            .populate('qualificationsHeld')
+            .populate('availability')
+            .populate({path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}})
+            .populate({path: 'assignedShifts', populate: {path: 'shifts', model: Shift}})
+            .populate({path: 'assignedShifts', populate:{path: 'timeslot', model: Timeslot}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', model: Role}})
+            .populate({path: 'assignedShifts', populate:{path: 'role', populate: {path: 'qualifications', model: Qualification}}});
         },
 
         volunteer: async (_, { volunteerId }) => {
@@ -50,8 +136,15 @@ module.exports = {
         },
 
         getShifts: async () => {
-            return await Shift.find().sort({ name: 1 }).populate('timeslots').populate('roles').populate({path: 'roles', populate: {path: 'qualifications', model: Qualification}});
-        },
+            return await Shift.find()
+            .populate("timeslot")
+            .populate("role")
+            .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+            .populate("assignedVolunteer")
+            .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+            .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
+            .populate({path: "assignedVolunteer", populate: {path: 'nominatedRoles', populate: {path: 'qualifications', model: Qualification}}})
+        }
     },
 
     Mutation: {
@@ -77,15 +170,17 @@ module.exports = {
     
         return { token, user };
         },
-        addVolunteer: async (_, {volunteer}) => {
-            //Replace name values in arrays with ObjectIds and create new volunteer document
-            volunteer.qualificationsHeld = await getObjectIds(volunteer.qualificationsHeld, Qualification);
-
-            volunteer.availability = await getObjectIds(volunteer.availability, Timeslot);
-
-            volunteer.nominatedRoles = await getObjectIds(volunteer.nominatedRoles, Role);
-
-            return Volunteer.create(volunteer);
+        addVolunteer: async (_, {volunteer}, context) => {
+            if (context.user) {
+                const userId = context.user._id
+                //Replace name values in arrays with ObjectIds and create new volunteer document
+                volunteer.qualificationsHeld = await getObjectIds(volunteer.qualificationsHeld, Qualification);
+                volunteer.availability = await getObjectIds(volunteer.availability, Timeslot);
+                volunteer.nominatedRoles = await getObjectIds(volunteer.nominatedRoles, Role);
+                volunteer.userId = userId;
+                return Volunteer.create(volunteer);
+            }
+            throw new AuthenticationError('Please make sure you have logged in!');
         },
         removeVolunteer: async (_, { volunteerId }) => {
             return await Volunteer.findByIdAndDelete(volunteerId);
@@ -99,11 +194,42 @@ module.exports = {
                 { new: true }
             );
         },
+        assignVolunteerToShift: async (_, {shiftId, volunteerId}) => {
+            return await Shift.findByIdAndUpdate(
+                shiftId,
+                { "assignedVolunteer": volunteerId },
+                { new: true }
+            )
+            .populate("timeslot")
+            .populate("role")
+            .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+            .populate("assignedVolunteer")
+            .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+            .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
+        },
+        removeVolunteerFromShift: async (_, {shiftId, volunteerId}) => {
+            return await Shift.findByIdAndUpdate(
+                shiftId,
+                { "$unset": { "assignedVolunteer": volunteerId } },
+                { new: true }
+            )
+            .populate("timeslot")
+            .populate("role")
+            .populate({path: 'role', populate: {path: 'qualifications', model: Qualification}})
+            .populate("assignedVolunteer")
+            .populate({path: "assignedVolunteer", populate: {path: "qualificationsHeld", model: Qualification}})
+            .populate({path: "assignedVolunteer", populate: {path: "availability", model: Timeslot}})
+        },
         addRole: async (_, { name, label, qualifications }) => {
             return Role.create({ name, label, qualifications });
         },
         addQualification: async (_, {name}) => {
             return Qualification.create({ name });
+        },
+        addShift: async (_, {shift}) => {
+            shift.timeslot = await getObjectId(shift.timeslots, Timeslot, 'name');
+            shift.role = await getObjectId(shift.roles, Role, 'name');
+            return Shift.create(shift)
         },
         removeShift: async (_, { shiftId }) => {
             return await Shift.findByIdAndDelete(shiftId);

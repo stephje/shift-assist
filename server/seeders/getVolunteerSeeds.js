@@ -18,7 +18,7 @@ function getVolunteerSeeds() {
     const medicalConditions = [
         'Asthma, cannot run long distances or perform extreme aerobic activities', 
         'Minor injury, cannot raise right arm high above head',
-        '', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', ''
+        '', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', '','', ''
     ];
 
     for (let i = 0; i < 30; i++) {
@@ -41,6 +41,7 @@ function getVolunteerSeeds() {
         volunteer.nominatedRoles = faker.random.arrayElements(roles);
         volunteer.qualificationsHeld = faker.random.arrayElements(qualifications);
         volunteer.availability = faker.random.arrayElements(timeslots);
+        volunteer.assignedShifts = [];
 
         volunteerArray.push(volunteer);
     }
