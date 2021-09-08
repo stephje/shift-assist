@@ -41,15 +41,6 @@ function getValuesbyName(array) {
     return newArray;
 }
 
-// This is just to convert a value to "Yes" or "No" rather than "true"/"false"
-function getYesNo(b) {
-    if (b === 'true') {
-        return 'Yes';
-    } else if (b === 'false') {
-        return 'No';
-    }
-}
-
 const VolunteerEntry = ({ volunteer }) => {
     // Styling for volunteer list
     const useStyles = makeStyles(theme => ({
@@ -87,7 +78,7 @@ const VolunteerEntry = ({ volunteer }) => {
     const availabilityIDs = volunteer.availability;
     const availabilityArray = getValuesbyName(availabilityIDs);
 
-    const previousExperience = getYesNo(volunteer.previousExperience);
+    const previousExperience = volunteer.previousExperience;
 
     return (
         <Accordion>
