@@ -20,6 +20,7 @@ function AssignmentDialog(props) {
         onClose();
       };
 
+    // Close selection box and assign volunteer
     const handleConfirm = (event) => {
         onClose();
         const shiftID = event.currentTarget.name;
@@ -64,7 +65,7 @@ function AssignmentDialog(props) {
                 onChange={handleChange}
                 options={volunteers}
                 getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                style={{ width: 300 }}
+                style={{ width: 300, paddingInline: 16 }}
                 renderInput={(params) => <TextField {...params} label="Volunteer" variant="outlined" />}
                 />
                 <Button onClick={handleConfirm} name={name} id={volunteers._id}>

@@ -16,10 +16,17 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_SHIFTS } from "../utils/queries";
 import { ASSIGN_VOLUNTEER_TO_SHIFT, REMOVE_VOLUNTEER_FROM_SHIFT } from "../utils/mutations";
 import TableBodyContent from "../components/adminComponents/TableBodyContent";
+import { blueGrey } from '@material-ui/core/colors';
+
 
 
 // Styling for ShiftList
 const useStyles = makeStyles((theme) => ({
+  palette: {
+    info: {
+      main: blueGrey[500]
+    }
+  },
   root: {
     width: "100%",
   },
@@ -47,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 // Table cells with custom styling
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
   },
   body: {

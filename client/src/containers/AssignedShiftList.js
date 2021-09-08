@@ -14,12 +14,12 @@ import {
 } from '@material-ui/core';
 import { GET_ASSIGNED_SHIFTS_BY_USER_ID } from '../utils/queries';
 import AnimatedModal from '../components/AnimatedModal';
-
+import { blueGrey } from '@material-ui/core/colors';
 
 // Table cells with custom styling
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.info.main,
     color: theme.palette.common.white,
   },
   body: {
@@ -38,6 +38,11 @@ const StyledTableRow = withStyles((theme) => ({
 
 // Create custom styles
 const useStyles = makeStyles({
+  palette: {
+    info: {
+      main: blueGrey[500]
+    }
+  },
   table: {
     minWidth: 700,
   },
@@ -73,7 +78,7 @@ export default function AssignedShiftList() {
   }
 
   // If there is volunteer data and assigned shifts, display it in a table
-  if (data) {
+  if (data && (data.getAssignedShiftsByUserId.length !== 0)) {
       const shiftArray = data.getAssignedShiftsByUserId;
     return (
         <TableContainer component={Paper}>

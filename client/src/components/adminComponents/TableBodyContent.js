@@ -42,9 +42,6 @@ function TableBodyContent({shift, assignVolunteer, removeVolunteer}) {
                 {shift.assignedVolunteer.firstName} {shift.assignedVolunteer.lastName}
             </StyledTableCell>
             <StyledTableCell align='left'>
-                {/* <Button name={shift._id} onClick={assignVolunteer}>
-                    Assign
-                </Button> */}
                 <InputDialog name={shift._id} assignVolunteer={assignVolunteer}/>
                 <Button name={shift._id} onClick={removeVolunteer}>
                     Remove
@@ -65,9 +62,6 @@ function TableBodyContent({shift, assignVolunteer, removeVolunteer}) {
 
             </StyledTableCell>
             <StyledTableCell align='left'>
-                {/* <Button name={shift._id} onClick={assignVolunteer}>
-                    Assign
-                </Button> */}
                 <InputDialog name={shift._id} assignVolunteer={assignVolunteer}/>
                 <Button name={shift._id} onClick={removeVolunteer} >
                     Remove
