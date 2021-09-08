@@ -5,6 +5,7 @@ import {
     Button,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import InputDialog from '../InputDialog';
 
 // Table cells with custom styling
 const StyledTableCell = withStyles(theme => ({
@@ -41,9 +42,10 @@ function TableBodyContent({shift, assignVolunteer, removeVolunteer}) {
                 {shift.assignedVolunteer.firstName} {shift.assignedVolunteer.lastName}
             </StyledTableCell>
             <StyledTableCell align='left'>
-                <Button name={shift._id} onClick={assignVolunteer}>
+                {/* <Button name={shift._id} onClick={assignVolunteer}>
                     Assign
-                </Button>
+                </Button> */}
+                <InputDialog name={shift._id} assignVolunteer={assignVolunteer}/>
                 <Button name={shift._id} onClick={removeVolunteer}>
                     Remove
                 </Button>
@@ -63,10 +65,11 @@ function TableBodyContent({shift, assignVolunteer, removeVolunteer}) {
 
             </StyledTableCell>
             <StyledTableCell align='left'>
-                <Button name={shift._id} onClick={assignVolunteer}>
+                {/* <Button name={shift._id} onClick={assignVolunteer}>
                     Assign
-                </Button>
-                <Button name={shift._id} onClick={removeVolunteer}>
+                </Button> */}
+                <InputDialog name={shift._id} assignVolunteer={assignVolunteer}/>
+                <Button name={shift._id} onClick={removeVolunteer} >
                     Remove
                 </Button>
             </StyledTableCell>

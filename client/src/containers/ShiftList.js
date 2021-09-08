@@ -9,13 +9,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_SHIFTS } from "../utils/queries";
 import { ASSIGN_VOLUNTEER_TO_SHIFT, REMOVE_VOLUNTEER_FROM_SHIFT } from "../utils/mutations";
 import TableBodyContent from "../components/adminComponents/TableBodyContent";
+
 
 // Styling for ShiftList
 const useStyles = makeStyles((theme) => ({
@@ -58,12 +59,14 @@ function ShiftList() {
   // Use styling defined above
   const classes = useStyles();
 
-  function assignVolunteer(event) {
-    const shiftID = event.currentTarget.name;
+  function assignVolunteer(shiftID, volunteerID) {
+    // const shiftID = event.currentTarget.name;
+    const shiftId = shiftID;
+    const volunteerId = volunteerID;
 
     //Add volunteer search and use that as input
     assignVolunteerToShift({
-      variables: { shiftId: shiftID, volunteerId: "61375aba4737d5070883af0e" },
+      variables: { shiftId: shiftId, volunteerId: volunteerId },
     });
   }
 
@@ -101,7 +104,6 @@ function ShiftList() {
     console.log("Not Found");
   } else if (data.getShifts) {
     const shiftArray = data.getShifts;
-    // console.log(shiftArray)
 
     return (
       <Grid container className={classes.root} spacing={2}>
@@ -120,7 +122,7 @@ function ShiftList() {
               </TableHead>
               <TableBody>
                 {shiftArray.map((shift) => (
-                  <TableBodyContent key={shift._id} shift={shift} assignVolunteer={assignVolunteer} removeVolunteer={removeVolunteer}/>
+                  <TableBodyContent key={shift._id} shift={shift} removeVolunteer={removeVolunteer} assignVolunteer={assignVolunteer}/>
                 ))}
               </TableBody>
             </Table>

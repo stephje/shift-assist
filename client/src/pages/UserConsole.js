@@ -77,7 +77,7 @@ export default function UserConsole() {
                 >
                     New Volunteer Registration
                 </Button>
-                <Button
+                {/* <Button
                     size='large'
                     variant='contained'
                     color='primary'
@@ -85,7 +85,7 @@ export default function UserConsole() {
                     onClick={toggleView}
                     >
                         View and Edit Registration
-                </Button>
+                </Button> */}
                 <Button
                     size='large'
                     variant='contained'
