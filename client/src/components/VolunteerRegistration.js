@@ -121,13 +121,15 @@ export default function VolunteerRegistration() {
         volunteerObject.nominatedRoles = rolesArray;
         volunteerObject.qualificationsHeld = qualificationsArray;
 
+        console.log(volunteerObject)
+
         try {
             // Add volunteer passing in volunteerObject which is the organised data from the form
             await addVolunteer({ variables: { volunteer: volunteerObject } });
-            alert('Form Submitted Successfully!');
             history.push("/userconsole");
             
         } catch (error) {
+            alert('Something went wrong- please try again.');
             console.error(error);
         }
     }

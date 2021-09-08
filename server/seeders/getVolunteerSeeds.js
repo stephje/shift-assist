@@ -31,7 +31,7 @@ function getVolunteerSeeds() {
         volunteer.suburb = faker.address.city();
         volunteer.state = faker.address.stateAbbr();
         volunteer.postcode = faker.address.zipCode();
-        volunteer.previousExperience = faker.datatype.boolean();
+        volunteer.previousExperience = faker.random.arrayElement(["Yes", "No"]);
         volunteer.medical = faker.random.arrayElement(medicalConditions);
         volunteer.emergencyContactName = faker.name.findName();
         volunteer.emergencyContactRelationship = faker.random.arrayElement(["Parent", "Sibling", "Partner", "Friend"]);
